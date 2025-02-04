@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&family=Oswald:wght@200..700&display=swap');
+html{
+    background-color:#0A0619;
+    color: white;
+    font-family: "Lexend Giga", serif;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.cont{
+    margin: 0 auto;
+    width: 80%;
+}
