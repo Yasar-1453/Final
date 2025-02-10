@@ -20,7 +20,7 @@ namespace Backend.Api.Models
         [JsonIgnore]
         public Feature Features { get; set; }
         [JsonIgnore]
-        public ICollection<GameKey> GameKeys { get; set; }
+        public ICollection<GameKey>? GameKeys { get; set; }
        
 
 

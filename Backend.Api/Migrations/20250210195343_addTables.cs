@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class addtables : Migration
+    public partial class addTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,7 +79,7 @@ namespace Backend.Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsSold = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false),
@@ -100,12 +100,6 @@ namespace Backend.Api.Migrations
                 name: "IX_GameKeys_GameId",
                 table: "GameKeys",
                 column: "GameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GameKeys_Key",
-                table: "GameKeys",
-                column: "Key",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_FeaturesId",

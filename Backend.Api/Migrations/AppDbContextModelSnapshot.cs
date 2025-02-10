@@ -114,14 +114,11 @@ namespace Backend.Api.Migrations
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
-
-                    b.HasIndex("Key")
-                        .IsUnique();
 
                     b.ToTable("GameKeys");
                 });

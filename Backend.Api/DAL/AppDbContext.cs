@@ -22,13 +22,16 @@ namespace Backend.Api.DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<GameKey>()
-            .HasIndex(gk => gk.Key)
-            .IsUnique();
+
 
             modelBuilder.Entity<GameKey>()
                 .HasOne(x => x.Game)
                 .WithMany(x => x.GameKeys)
+                .HasForeignKey(x => x.GameId);
+
+            modelBuilder.Entity<Game>()
+                .HasMany(x => x.GameKeys)
+                .WithOne(x => x.Game)
                 .HasForeignKey(x => x.GameId);
 
             modelBuilder.Entity<Game>()
@@ -42,19 +45,16 @@ namespace Backend.Api.DAL
                 .HasForeignKey(x => x.FeaturesId);
 
             modelBuilder.Entity<Genre>()
-                .HasMany(x=>x.Games)
-                .WithOne(x=>x.Genre)
-                .HasForeignKey(x=>x.GenreId);
+                .HasMany(x => x.Games)
+                .WithOne(x => x.Genre)
+                .HasForeignKey(x => x.GenreId);
 
             modelBuilder.Entity<Feature>()
                 .HasMany(x => x.Games)
                 .WithOne(x => x.Features)
                 .HasForeignKey(x => x.FeaturesId);
 
-            modelBuilder.Entity<Game>()
-                .HasMany(x => x.GameKeys)
-                .WithOne(x => x.Game)
-                .HasForeignKey(x => x.GameId);
+
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.Api.DTO.Game;
 using Backend.Api.DTO.GameKey;
 using Backend.Api.Models;
 using Backend.Api.Repositories.Interface;
@@ -10,14 +11,16 @@ namespace Backend.Api.Services.Implementations
     {
         readonly IGameKeyRepository _rep;
         IMapper _mapper;
-        public GameKeyService(IGameKeyRepository rep, IMapper mapper)
+        public GameKeyService(IGameKeyRepository rep, IMapper mapper, IWebHostEnvironment env)
         {
             _rep = rep;
             _mapper = mapper;
+        
         }
-
         public async Task<GetGameKeyDto> CreateAsync(CreateGameKeyDto dto)
         {
+
+
             var key = _mapper.Map<GameKey>(dto);
             var newKey = await _rep.Create(key);
             await _rep.SaveChangesAsync();
@@ -46,6 +49,7 @@ namespace Backend.Api.Services.Implementations
 
         public async Task<GetGameKeyDto> GetById(int id)
         {
+
             var dto = _mapper.Map<GetGameKeyDto>(await _rep.GetById(id));
             return dto;
         }
@@ -60,7 +64,7 @@ namespace Backend.Api.Services.Implementations
         public async Task Update(UpdateGameKeyDto dto)
         {
             var key = await GetById(dto.Id);
-        
+
             key = _mapper.Map<GetGameKeyDto>(dto);
             _rep.Update(_mapper.Map<GameKey>(key));
             await _rep.SaveChangesAsync();
