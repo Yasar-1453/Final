@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class addTables : Migration
+    public partial class addtables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,40 +26,17 @@ namespace Backend.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameKeys",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsSold = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameKeys", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Genres",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameKeyId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genres", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Genres_GameKeys_GameKeyId",
-                        column: x => x.GameKeyId,
-                        principalTable: "GameKeys",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -96,6 +73,29 @@ namespace Backend.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GameKeys",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsSold = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameKeys", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameKeys_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_GameKeys_GameId",
                 table: "GameKeys",
@@ -116,27 +116,13 @@ namespace Backend.Api.Migrations
                 name: "IX_Games_GenreId",
                 table: "Games",
                 column: "GenreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Genres_GameKeyId",
-                table: "Genres",
-                column: "GameKeyId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_GameKeys_Games_GameId",
-                table: "GameKeys",
-                column: "GameId",
-                principalTable: "Games",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_GameKeys_Games_GameId",
-                table: "GameKeys");
+            migrationBuilder.DropTable(
+                name: "GameKeys");
 
             migrationBuilder.DropTable(
                 name: "Games");
@@ -146,9 +132,6 @@ namespace Backend.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "GameKeys");
         }
     }
 }

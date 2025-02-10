@@ -20,7 +20,7 @@ namespace Backend.Api.Services.Implementations
         }
         public async Task<GetGameDto> CreateAsync(CreateGameDto dto)
         {
-            dto.ImageUrl = dto.Photo.Upload(_env.WebRootPath, "Image/Game");
+            //dto.ImageUrl = dto.Photo.Upload(_env.WebRootPath, "Image/Game");
 
             var game = _mapper.Map<Game>(dto);
             var newGame = await _rep.Create(game);

@@ -134,9 +134,6 @@ namespace Backend.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("GameKeyId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -145,8 +142,6 @@ namespace Backend.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameKeyId");
 
                     b.ToTable("Genres");
                 });
@@ -181,13 +176,6 @@ namespace Backend.Api.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("Backend.Api.Models.Genre", b =>
-                {
-                    b.HasOne("Backend.Api.Models.GameKey", null)
-                        .WithMany("Genres")
-                        .HasForeignKey("GameKeyId");
-                });
-
             modelBuilder.Entity("Backend.Api.Models.Feature", b =>
                 {
                     b.Navigation("Games");
@@ -196,11 +184,6 @@ namespace Backend.Api.Migrations
             modelBuilder.Entity("Backend.Api.Models.Game", b =>
                 {
                     b.Navigation("GameKeys");
-                });
-
-            modelBuilder.Entity("Backend.Api.Models.GameKey", b =>
-                {
-                    b.Navigation("Genres");
                 });
 
             modelBuilder.Entity("Backend.Api.Models.Genre", b =>
