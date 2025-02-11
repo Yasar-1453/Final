@@ -1,4 +1,5 @@
 ﻿using Backend.Api.DTO.Game;
+using Backend.Api.Services.Implementations;
 using Backend.Api.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,11 +42,12 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateGameDto dto)
+        public async Task<IActionResult> Create(CreateGameDto dto, IFormFile image)
         {
             try
             {
-                return Ok(await _service.CreateAsync(dto));
+              
+                return Ok(await _service.CreateAsync(dto, image));
             }
             catch (Exception ex)
             {

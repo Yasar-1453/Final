@@ -10,7 +10,7 @@ namespace Backend.Api.DTO.Game
         public decimal DiscountedPrice { get; set; }
         public DateTime ReleaseDate { get; set; } = DateTime.UtcNow;
         public string ImageUrl { get; set; }
-        //public IFormFile Photo { get; set; }
+        public IFormFile? Photo { get; set; }
         public bool IsActive { get; set; }
 
         public int GenreId { get; set; }

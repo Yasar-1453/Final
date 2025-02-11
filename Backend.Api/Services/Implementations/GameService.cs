@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Backend.Api.DTO.Game;
 using Backend.Api.Helpers.Extensions;
 using Backend.Api.Models;
@@ -18,15 +19,39 @@ namespace Backend.Api.Services.Implementations
             _mapper = mapper;
             _env = env;
         }
-        public async Task<GetGameDto> CreateAsync(CreateGameDto dto)
+        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, IFormFile image)
         {
-            //dto.ImageUrl = dto.Photo.Upload(_env.WebRootPath, "Image/Game");
+  
+
+            // Generate unique file name
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+
+            // Define the path to save the image
+            var filePath = Path.Combine(_env.WebRootPath, "Image", "Game", fileName);
+
+            // Ensure the directory exists
+            if (!Directory.Exists(Path.Combine(_env.WebRootPath, "Image", "Game")))
+            {
+                Directory.CreateDirectory(Path.Combine(_env.WebRootPath, "Image", "Game"));
+            }
+
+            // Save the file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+
+            // Store image URL in the DTO
+            dto.ImageUrl = $"{_env.WebRootPath}, Image/Game";
 
             var game = _mapper.Map<Game>(dto);
             var newGame = await _rep.Create(game);
             await _rep.SaveChangesAsync();
             return _mapper.Map<GetGameDto>(newGame);
+
         }
+
+        
 
         public async Task Delete(int id)
         {
