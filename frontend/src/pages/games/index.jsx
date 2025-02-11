@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import { FaHeart } from "react-icons/fa";
+import { FaCirclePlus } from "react-icons/fa6";
 let gameUrl = "http://localhost:5156/api/Game"
 let genreUrl = "http://localhost:5156/api/Genre"
 
@@ -45,7 +45,7 @@ function Games() {
 
               <div className="game-img">
                 <div className="overlay">
-                  <div className='fav-icon'><FaHeart /></div>
+                  <div className='fav-icon'><FaCirclePlus /></div>
                 </div>
                 <img src={product.imageUrl} alt="" />
               </div>

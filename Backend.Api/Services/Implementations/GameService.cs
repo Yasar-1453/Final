@@ -42,7 +42,7 @@ namespace Backend.Api.Services.Implementations
             }
 
             // Store image URL in the DTO
-            dto.ImageUrl = $"{_env.WebRootPath}, Image/Game";
+            dto.ImageUrl = $"{image}{fileName}";
 
             var game = _mapper.Map<Game>(dto);
             var newGame = await _rep.Create(game);
