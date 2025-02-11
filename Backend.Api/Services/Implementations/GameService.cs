@@ -19,7 +19,7 @@ namespace Backend.Api.Services.Implementations
             _mapper = mapper;
             _env = env;
         }
-        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, IFormFile image)
+        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, IFormFile image, string imageUrl)
         {
   
 
@@ -42,7 +42,7 @@ namespace Backend.Api.Services.Implementations
             }
 
             // Store image URL in the DTO
-            dto.ImageUrl = $"{_env.WebRootPath}, Image/Game";
+            dto.ImageUrl = $"{imageUrl}{fileName}";
 
             var game = _mapper.Map<Game>(dto);
             var newGame = await _rep.Create(game);
