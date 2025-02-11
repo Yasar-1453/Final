@@ -42,12 +42,12 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateGameDto dto, IFormFile image, string imageUrl)
+        public async Task<IActionResult> Create(CreateGameDto dto)
         {
             try
             {
-              
-                return Ok(await _service.CreateAsync(dto, image, imageUrl));
+                var imageUrl = $"{Request.Scheme}://{Request.Host}/Image/Game/";
+                return Ok(await _service.CreateAsync(dto, imageUrl));
             }
             catch (Exception ex)
             {

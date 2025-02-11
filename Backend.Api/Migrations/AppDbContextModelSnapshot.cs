@@ -64,7 +64,6 @@ namespace Backend.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")

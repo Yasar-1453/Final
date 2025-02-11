@@ -19,12 +19,12 @@ namespace Backend.Api.Services.Implementations
             _mapper = mapper;
             _env = env;
         }
-        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, IFormFile image, string imageUrl)
+        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, string imageUrl)
         {
   
 
             // Generate unique file name
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image?.FileName);
 
             // Define the path to save the image
             var filePath = Path.Combine(_env.WebRootPath, "Image", "Game", fileName);
@@ -38,15 +38,12 @@ namespace Backend.Api.Services.Implementations
             // Save the file
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await image.CopyToAsync(stream);
+                await dto.Image.CopyToAsync(stream);
             }
 
-            // Store image URL in the DTO
-<<<<<<< HEAD
-            dto.ImageUrl = $"{image}{fileName}";
-=======
+
             dto.ImageUrl = $"{imageUrl}{fileName}";
->>>>>>> 868e99624efcadb973aa94b9888dd0bf58e50dfd
+
 
             var game = _mapper.Map<Game>(dto);
             var newGame = await _rep.Create(game);

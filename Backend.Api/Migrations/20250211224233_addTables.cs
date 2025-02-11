@@ -50,7 +50,7 @@ namespace Backend.Api.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiscountedPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false),
                     FeaturesId = table.Column<int>(type: "int", nullable: false),

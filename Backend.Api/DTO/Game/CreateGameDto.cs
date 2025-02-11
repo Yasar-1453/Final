@@ -1,4 +1,5 @@
 ﻿using Backend.Api.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Api.DTO.Game
 {
@@ -9,8 +10,10 @@ namespace Backend.Api.DTO.Game
         public decimal Price { get; set; }
         public decimal DiscountedPrice { get; set; }
         public DateTime ReleaseDate { get; set; } = DateTime.UtcNow;
-        public string ImageUrl { get; set; }
-        public IFormFile? Photo { get; set; }
+        public string? ImageUrl { get; set; } 
+
+        [Required]
+        public IFormFile? Image { get; set; } 
         public bool IsActive { get; set; }
 
         public int GenreId { get; set; }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250210195343_addTables")]
+    [Migration("20250211224233_addTables")]
     partial class addTables
     {
         /// <inheritdoc />
@@ -67,7 +67,6 @@ namespace Backend.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
