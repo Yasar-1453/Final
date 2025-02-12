@@ -10,8 +10,8 @@ function Footer() {
         <div>
           <p>Contacts:</p>
           <div>
-            <p>faridXhikmet@gmail.com</p>
-            <p>+994 69 069 69 69</p>
+            <p>games_store@gmail.com</p>
+            <p>+994 71 777 77 77</p>
           </div>
         </div>
         <div>
@@ -31,7 +31,7 @@ function Footer() {
         </div>
       </div>
       <div>
-        <p className='cont py-4' style={{fontSize:"12px"}}>© 2025, Games Store, Inc.All rights reserved. Our websites may contain links to other sites and resources provided by third parties. These links are provided for your convenience only. </p>
+        <p className='cont py-4' style={{fontSize:"12px"}}>© 2025, Games Store, Inc. All rights reserved. Our websites may contain links to other sites and resources provided by third parties. These links are provided for your convenience only. </p>
       </div>
     </>
   )
