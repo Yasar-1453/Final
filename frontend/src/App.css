@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&display=swap');
 html{
     background-color:#0A0619;
     color: white;
@@ -66,36 +68,38 @@ html{
 
 .slider-container {
     position: relative;
-    width: 70%;
+    width: 65%;
     margin: 20px auto;
   }
   
   .slider img {
     width: 100%;
-    height: 80vh;
+    height: 65vh;
     object-fit: cover;
     border-radius: 20px;
   }
-  
-  button {
+  .slider{
+    position: relative;
+  }
+  .slider-btn{
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255,255,255, 0.1);
-    color: white;
-    border: none;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    background-color: rgb(10, 6, 25,0.5);
+    border:2px solid rgb(255, 255, 255,0.5);
+    text-transform: uppercase;
+    font-size: 17px;
     padding: 10px;
-    cursor: pointer;
-    font-size: 25px;
+    font-family: "Rowdies", serif;
   }
-  
-  button.prev {
-    left: 10px;
+  .slider-btn:hover{
+    color: #0A0619;
+    background-color: rgb(255, 255, 255,0.5);
+    border:2px solid  rgb(10, 6, 25,0.5);
   }
-  
-  button.next {
-    right: 10px;
-  }
+
 
 
   .btn-custom{
@@ -107,6 +111,25 @@ html{
     margin-bottom: -10px;
     color: #000;
   }
+
+  .fav-card img{
+  border-radius: 10px;
+  }
+
+.wlcm{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: "Phudu", serif;
+  font-size: 50px;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @media (min-width: 992px) and (max-width:1200px) {
     .card{

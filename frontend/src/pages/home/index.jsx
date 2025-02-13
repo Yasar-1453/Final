@@ -1,46 +1,61 @@
 import React, { useEffect, useState } from 'react'
-const images = [
-"https://4kwallpapers.com/images/walls/thumbs_3t/18719.jpg",
-"https://media.istockphoto.com/id/498301640/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/big-%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0-%D0%B1%D0%B0%D0%BD%D0%BD%D0%B5%D1%80.jpg?s=612x612&w=0&k=20&c=-TS75F7hE9QS9mO8B9Sl6ANDhpg1v3DHFE2r1_SRT8A=",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIfnLSNVrotMH_cY2Loik03WkpG6n9A5x5Dw&s"
-];
-import { TfiArrowCircleLeft } from "react-icons/tfi";
-import { TfiArrowCircleRight } from "react-icons/tfi";
-
+import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { GiNestedHearts } from "react-icons/gi";
+import { NavLink } from 'react-router-dom';
+const gameUrl = "http://localhost:5156/api/Game";
 
 function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [data, setData] = useState([]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000); 
-    return () => clearInterval(interval);
+    getData();
   }, []);
+
+  function getData() {
+    axios.get(gameUrl).then((res) => {
+      setData(res.data);
+    });
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+
+  };
+
   return (
-    <div>
- <div className="slider-container">
-      <div className="slider">
-        <img src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} />
+    <>
+
+      <div className='slider-container'>
+
+        <Slider {...settings}>
+          <div className='slider'>
+            <img src='https://img.freepik.com/premium-photo/dark-background-stage-copy-space-colorful-neon-green-lights-bright-reflections-3d-render_334678-431.jpg?semt=ais_hybrid' alt="Extra Image" />
+            <div className="wlcm">
+              <p>Welcome</p> 
+              <p className='flex items-center gap-1'>To Our Store <GiNestedHearts /></p>
+              </div>
+
+          </div>
+          {data.map((game, index) => (
+            <div key={index} className='slider'>
+              <img src={game.imageUrl} alt={`Game ${index}`} />
+              <NavLink to={`/games/${game.id}`}><button className='slider-btn'>Play Now</button></NavLink>
+              {/* <NavLink to={`/games/${game.id}`}> <img src={game.imageUrl} alt={`Game ${index}`} /></NavLink> */}
+            </div>
+          ))}
+        </Slider>
       </div>
-      <button className="prev" onClick={prevSlide}>
-      <TfiArrowCircleLeft />
-      </button>
-      <button className="next" onClick={nextSlide}>
-      <TfiArrowCircleRight />
-      </button>
-    </div>
-    </div>
+    </>
   )
 }
 

@@ -23,7 +23,7 @@ function Footer() {
         <div>
           <p>Social Media:</p>
           <div className='flex gap-2'>
-            <FaInstagram style={{ fontSize: "20px" }} />
+           <a href="https://www.instagram.com/dr.lightt?igsh=MXNrczZjN2ppZmV5bQ=="> <FaInstagram style={{ fontSize: "20px" }} /></a>
             <FaWhatsapp style={{ fontSize: "20px" }} />
             <FaTiktok style={{ fontSize: "20px" }} />
             <FaTwitter style={{ fontSize: "20px" }} />

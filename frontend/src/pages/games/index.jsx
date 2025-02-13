@@ -10,6 +10,7 @@ let genreUrl = "http://localhost:5156/api/Genre"
 
 function Games() {
   let [data, setData] = useState([])
+ 
   let [genreData, setGenreData] = useState([])
   let { favorites, setFavorites } = useContext(favoritesContext)
 
@@ -17,6 +18,8 @@ function Games() {
     axios.get(gameUrl)
       .then((res) => {
         setData(res.data)
+  
+        
       })
   }
 
@@ -59,8 +62,11 @@ function Games() {
       setFavorites([...favorites, product])
     }
   }
+
+
   return (
     <div>
+
       <div className='cont flex gap-2'>
         {
           genreData && genreData.map(genre => (
@@ -83,7 +89,7 @@ function Games() {
               </div>
               <div className='game-info'>
                 <h1>{product.name}</h1>
-                <p>{product.price}$</p>
+                <p>{product.price}<span style={{color:" #C0F001"}}>$</span></p>
               </div>
               {/* <div style={{ display: "flex" }}>
                 <NavLink to={`/products/${product._id}`} style={{ color: "black", fontSize: "20px" }}><IoIosSearch /></NavLink>
