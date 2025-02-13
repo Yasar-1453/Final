@@ -1,6 +1,7 @@
 ﻿using Backend.Api.DTO.Game;
 using Backend.Api.DTO.Genre;
 using Backend.Api.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GenreController : ControllerBase
     {
         readonly IGenreService _service;
@@ -30,7 +32,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromForm] int id)
         {
             try
             {
@@ -42,7 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateGenreDto dto)
+        public async Task<IActionResult> Create([FromForm] CreateGenreDto dto)
         {
             try
             {
@@ -55,7 +57,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateGenreDto dto)
+        public async Task<IActionResult> Update([FromForm] UpdateGenreDto dto)
         {
             try
             {
@@ -69,7 +71,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromForm] int id)
         {
             try
             {
@@ -82,7 +84,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        public async Task<IActionResult> SoftDelete(int id)
+        public async Task<IActionResult> SoftDelete([FromForm] int id)
         {
             try
             {

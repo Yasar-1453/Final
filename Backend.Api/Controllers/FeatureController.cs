@@ -1,6 +1,7 @@
 ﻿using Backend.Api.DTO.Feature;
 using Backend.Api.DTO.Game;
 using Backend.Api.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FeatureController : ControllerBase
     {
         readonly IFeatureService _service;
@@ -30,7 +32,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromForm] int id)
         {
             try
             {
@@ -42,7 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateFeatureDto dto)
+        public async Task<IActionResult> Create([FromForm] CreateFeatureDto dto)
         {
             try
             {
@@ -56,7 +58,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateFeatureDto dto)
+        public async Task<IActionResult> Update([FromForm] UpdateFeatureDto dto)
         {
             try
             {
@@ -70,7 +72,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromForm] int id)
         {
             try
             {

@@ -1,5 +1,6 @@
 ﻿using Backend.Api.DTO.GameKey;
 using Backend.Api.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GameKeyController : ControllerBase
     {
         readonly IGameKeyService _service;
@@ -28,7 +30,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromForm] int id)
         {
             try
             {
@@ -40,7 +42,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateGameKeyDto dto)
+        public async Task<IActionResult> Create([FromForm] CreateGameKeyDto dto)
         {
             try
             {
@@ -53,7 +55,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateGameKeyDto dto)
+        public async Task<IActionResult> Update([FromForm] UpdateGameKeyDto dto)
         {
             try
             {
@@ -67,7 +69,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromForm] int id)
         {
             try
             {
@@ -80,7 +82,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        public async Task<IActionResult> SoftDelete(int id)
+        public async Task<IActionResult> SoftDelete([FromForm] int id)
         {
             try
             {
