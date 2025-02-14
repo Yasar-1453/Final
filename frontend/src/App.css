@@ -129,6 +129,54 @@ html{
   align-items: center;
   justify-content: center;
 }
+.genre-slider {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+
+}
+
+.slider-item {
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.genres{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+.genre-btn{
+  background-color: rgb(192, 240, 1,0.7);
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 7px;
+}
+.genre-btn:hover{
+  color:rgb(192, 240, 1) ;
+  background-color: transparent;
+  border: 2px solid white;
+}
+.slick-prev:before,.slick-next::before{
+
+background-color: rgb(192, 240, 1);
+/* font-size: 40px !important; */
+display: flex;
+align-items: center;
+justify-content: center;
+/* padding: 5px 25px 0px ; */
+padding: 6px 15px 5px;
+border-radius: 50%;
+}
+.slick-prev{
+/* margin-right: 40px !important; */
+left: -35px !important;
+}
 
 
 @media (min-width: 992px) and (max-width:1200px) {

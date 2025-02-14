@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 function Details() {
-    let [product, setProduct] = useState({})
+  let [product, setProduct] = useState({})
   let { id } = useParams()
   let navigate = useNavigate()
 
@@ -18,9 +18,15 @@ function Details() {
     getDetails()
   }, [id])
   return (
-    <div>
-      
-    </div>
+    <>
+      <div>
+        <img src={product.imageUrl} alt="" />
+        <p>{product.name}</p>
+        <p>{product.description}</p>
+        <p>{product.price}$</p>
+        <p>{product.releaseDate}</p>
+      </div>
+    </>
   )
 }
 

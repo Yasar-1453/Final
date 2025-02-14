@@ -13,7 +13,7 @@ function Navbar() {
     Swal.fire({
       title: "Unfortunately we haven't created an app yet. With love from our team <3",
       width: 600,
-      padding: "4em",
+      // padding: "4em",
       color: "#716add",
       background: "#fff url(/images/trees.png)",
       backdrop: `
@@ -22,11 +22,11 @@ function Navbar() {
         left top
         no-repeat
       `,
-      showConfirmButton: true,
-      confirmButtonText: "OK",
-      customClass: {
-        confirmButton: 'btn-custom'
-      }
+      // showConfirmButton: true,
+      // confirmButtonText: "OK",
+      // customClass: {
+      //   confirmButton: 'btn-custom'
+      // }
     });
   }
   return (
@@ -36,7 +36,7 @@ function Navbar() {
         <div className='flex items-center gap-2'>
           <GrLanguage className='text-white text-xl ' />
           <NavLink to="/login" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>LogIn</NavLink>
-          <p className=' btn btn-success' onClick={TrollCat}>Download</p>
+          <p className='cursor-pointer' onClick={TrollCat}>Download</p>
         </div>
       </div>
       <div className='cont flex justify-center'>

@@ -4,22 +4,23 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { favoritesContext } from '../../context/FavoritesContext';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { NavLink } from 'react-router-dom';
+import Slider from 'react-slick';
 let gameUrl = "http://localhost:5156/api/Game"
 let genreUrl = "http://localhost:5156/api/Genre"
 
 
 function Games() {
   let [data, setData] = useState([])
- 
   let [genreData, setGenreData] = useState([])
   let { favorites, setFavorites } = useContext(favoritesContext)
-
+  let [isVisible, setIsVisible] = useState(false);
   function getData() {
     axios.get(gameUrl)
       .then((res) => {
         setData(res.data)
-  
-        
+
+
       })
   }
 
@@ -35,6 +36,8 @@ function Games() {
     getGenreData()
   }, [])
 
+
+
   function handleAddFavorite(product) {
     let findFavorite = favorites.find(favorite => favorite.id == product.id)
     if (findFavorite) {
@@ -42,12 +45,12 @@ function Games() {
         icon: "error",
         title: "Oops...",
         text: "You already have this item",
-         padding: '3em 0',
-        showConfirmButton: true,  
+        //  padding: '3em 0',
+        showConfirmButton: true,
         confirmButtonText: "OK",
-        customClass: {
-          confirmButton: 'btn-custom'
-        }
+        // customClass: {
+        //   confirmButton: 'btn-custom'
+        // }
       });
     } else {
       Swal.fire({
@@ -56,18 +59,67 @@ function Games() {
         showConfirmButton: false,
         timer: 1800,
         customClass: {
-          title: 'small-title'  
+          title: 'small-title'
         }
       });
       setFavorites([...favorites, product])
     }
   }
+  const settings = {
+    slidesToShow: 4, // Показывать по 4 жанра
+    slidesToScroll: 4, // Перелистывать по 4 жанра
+    infinite: false, // Отключаем бесконечный цикл
+    arrows: true, // Показываем стрелки
+    dots: true, // Показываем пагинацию
+    speed: 500, // Скорость анимации
+    responsive: [
+      {
+        breakpoint: 1024, // для разрешений больше 1024px
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 768, // для разрешений больше 768px
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480, // для разрешений больше 480px
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
-
+ 
+  const toggleVisibility = () => {
+    setIsVisible(prevState => !prevState);
+  };
   return (
     <div>
+    <div className='genres'>
+      <button className='genre-btn' onClick={toggleVisibility}>Genres</button>
+    </div>
+    {isVisible && <div className="genre-slider">
+      <Slider {...settings}>
+        {genreData.map((genre, index) => (
 
-      <div className='cont flex gap-2'>
+          <div key={index} className="slider-item">
+            <p>{genre.name}</p> 
+          </div>
+        ))}
+      </Slider>
+    </div>}
+    
+
+
+      {/* <div className='cont flex gap-2'>
         {
           genreData && genreData.map(genre => (
             <div key={genre.id}>
@@ -75,7 +127,7 @@ function Games() {
             </div>
           ))
         }
-      </div>
+      </div> */}
       <div className='cont cards'>
         {
           data && data.map(product => (
@@ -88,13 +140,9 @@ function Games() {
                 <img src={product.imageUrl} alt="" />
               </div>
               <div className='game-info'>
-                <h1>{product.name}</h1>
-                <p>{product.price}<span style={{color:" #C0F001"}}>$</span></p>
+                <NavLink to={`/games/${product.id}`}><h1>{product.name}</h1></NavLink>
+                <p>{product.price}<span style={{ color: " #C0F001" }}>$</span></p>
               </div>
-              {/* <div style={{ display: "flex" }}>
-                <NavLink to={`/products/${product._id}`} style={{ color: "black", fontSize: "20px" }}><IoIosSearch /></NavLink>
-                <div style={{ cursor: "pointer" }} onClick={() => handleAddFavorite(product)}><FaHeart /></div>
-              </div> */}
             </div>
           ))
         }
