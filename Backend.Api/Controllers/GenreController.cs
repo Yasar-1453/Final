@@ -9,7 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class GenreController : ControllerBase
     {
         readonly IGenreService _service;
@@ -32,7 +32,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromForm] int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {

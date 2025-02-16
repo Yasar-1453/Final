@@ -9,7 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class FeatureController : ControllerBase
     {
         readonly IFeatureService _service;
@@ -32,7 +32,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromForm] int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {

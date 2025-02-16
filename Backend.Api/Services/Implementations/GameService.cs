@@ -19,14 +19,75 @@ namespace Backend.Api.Services.Implementations
             _mapper = mapper;
             _env = env;
         }
-        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, string imageUrl)
+        public async Task<GetGameDto> CreateAsync(CreateGameDto dto, string baseUrl)
         {
-  
+            string imageUrl = null;
+            List<string> imageUrls = new List<string>();
 
-            // Generate unique file name
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image?.FileName);
 
-            // Define the path to save the image
+            // ✅ Handle Single Image Upload
+            if (dto.Image != null)
+            {
+                string fileUrl = await SaveImageAsync(dto.Image);
+                imageUrl = $"{baseUrl}{fileUrl}"; // ✅ Return full URL
+            }
+
+            // ✅ Handle Multiple Image Uploads
+            if (dto.Images != null && dto.Images.Count > 0)
+            {
+                foreach (var file in dto.Images)
+                {
+                    var fileUrl = await SaveImageAsync(file);
+                   
+                    imageUrls.Add($"{baseUrl}{fileUrl}");
+                }
+
+            }
+
+        
+
+
+            //// Generate unique file name
+            //var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image?.FileName);
+
+            //// Define the path to save the image
+            //var filePath = Path.Combine(_env.WebRootPath, "Image", "Game", fileName);
+
+            //// Ensure the directory exists
+            //if (!Directory.Exists(Path.Combine(_env.WebRootPath, "Image", "Game")))
+            //{
+            //    Directory.CreateDirectory(Path.Combine(_env.WebRootPath, "Image", "Game"));
+            //}
+
+            //// Save the file
+            //using (var stream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    await dto.Image.CopyToAsync(stream);
+            //}
+
+
+            dto.ImageUrl = imageUrl;
+            dto.ImageUrls = imageUrls;
+
+
+
+
+            var game =  _mapper.Map<Game>(dto);
+            var newGame = await _rep.Create(game);
+            await _rep.Create(game);
+            await _rep.SaveChangesAsync();
+
+            return _mapper.Map<GetGameDto>(newGame);
+
+
+        }
+
+        private async Task<string> SaveImageAsync(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                throw new Exception("Invalid image file.");
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             var filePath = Path.Combine(_env.WebRootPath, "Image", "Game", fileName);
 
             // Ensure the directory exists
@@ -38,21 +99,13 @@ namespace Backend.Api.Services.Implementations
             // Save the file
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await dto.Image.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
             }
 
 
-            dto.ImageUrl = $"{imageUrl}{fileName}";
-
-
-            var game = _mapper.Map<Game>(dto);
-            var newGame = await _rep.Create(game);
-            await _rep.SaveChangesAsync();
-            return _mapper.Map<GetGameDto>(newGame);
-
+            return $"/Image/Game/{fileName}";
         }
 
-        
 
         public async Task Delete(int id)
         {

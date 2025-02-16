@@ -11,6 +11,7 @@ namespace Backend.Api.Models
         public decimal DiscountedPrice { get; set; }
         public DateTime ReleaseDate { get; set; } = DateTime.UtcNow;
         public string? ImageUrl { get; set; }
+        public List<string>? ImageUrls { get; set; }
         public bool IsActive { get; set; }
 
         public int GenreId { get; set; }

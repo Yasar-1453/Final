@@ -8,8 +8,9 @@
         public decimal Price { get; set; }
         public decimal DiscountedPrice { get; set; }
         public DateTime ReleaseDate { get; set; } = DateTime.UtcNow;
-        public string ImageUrl { get; set; }
-        public IFormFile Photo { get; set; }
+        public string? ImageUrl { get; set; } // ✅ Single Image URL
+        public List<string>? ImageUrls { get; set; }
+
         public bool IsActive { get; set; }
 
         public int GenreId { get; set; }

@@ -9,7 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class GameController : ControllerBase
     {
         readonly IGameService _service;
@@ -32,7 +32,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromForm] int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
@@ -48,8 +48,12 @@ namespace Backend.Api.Controllers
         {
             try
             {
-                var imageUrl = $"{Request.Scheme}://{Request.Host}/Image/Game/";
-                return Ok(await _service.CreateAsync(dto, imageUrl));
+                string baseUrl = $"{Request.Scheme}://{Request.Host}";
+              
+
+           
+
+                return Ok(await _service.CreateAsync(dto, baseUrl));
             }
             catch (Exception ex)
             {
