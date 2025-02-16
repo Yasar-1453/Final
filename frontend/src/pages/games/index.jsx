@@ -66,29 +66,29 @@ function Games() {
     }
   }
   const settings = {
-    slidesToShow: 4, // Показывать по 4 жанра
-    slidesToScroll: 4, // Перелистывать по 4 жанра
-    infinite: false, // Отключаем бесконечный цикл
-    arrows: true, // Показываем стрелки
-    dots: true, // Показываем пагинацию
-    speed: 500, // Скорость анимации
+    slidesToShow: 4,
+    slidesToScroll: 4, 
+    infinite: false,
+    arrows: true, 
+    dots: true,
+    speed: 500, 
     responsive: [
       {
-        breakpoint: 1024, // для разрешений больше 1024px
+        breakpoint: 1024, 
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
         },
       },
       {
-        breakpoint: 768, // для разрешений больше 768px
+        breakpoint: 768, 
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
         },
       },
       {
-        breakpoint: 480, // для разрешений больше 480px
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

@@ -179,6 +179,18 @@ left: -35px !important;
 }
 
 
+.game-slider{
+  position: relative;
+  width: 65%;
+  /* margin: 20px auto; */
+}
+.game-slide{
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+}
+
+
 @media (min-width: 992px) and (max-width:1200px) {
     .card{
         width: 40%;
