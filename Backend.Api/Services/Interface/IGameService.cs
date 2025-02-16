@@ -8,7 +8,7 @@ namespace Backend.Api.Services.Interface
         Task<GetGameDto> CreateAsync(CreateGameDto dto, string baseUrl);
         Task<GetGameDto> GetById(int id);
         List<GetGameDto> GetAll();
-        Task Update(UpdateGameDto dto);
+        Task Update(UpdateGameDto dto, string baseUrl);
         Task Delete(int id);
         Task SoftDelete(int id);
     }

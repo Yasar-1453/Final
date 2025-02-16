@@ -66,7 +66,10 @@ namespace Backend.Api.Controllers
         {
             try
             {
-                await _service.Update(dto);
+                string baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+
+                await _service.Update(dto, baseUrl);
                 return Ok();
             }
             catch (Exception ex)
