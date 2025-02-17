@@ -32,23 +32,24 @@ function Details() {
   };
   return (
     <div className='cont'>
-              <p>{product.name}</p>
+      <p className='my-3 font-bold'>{product.name}</p>
       <div className='game-slider'>
 
-        <Slider {...settings}>
+      <Slider {...settings}>
+          
           <div className=''>
-            <img src={product.imageUrl} alt="Extra Image" className='game-slide'/>
+            <img src={product.imageUrl} alt="Extra Image" className='game-slide' />
           </div>
           {Array.isArray(product.imageUrls) && product.imageUrls.map((url, index) => (
-            <img key={index} src={url} alt={`Product image ${index + 1}`} className='game-slide'/>
+            <img key={index} src={url} alt={`Product image ${index + 1}`} className='game-slide' />
           ))}
 
         </Slider>
-
-        <p>{product.description}</p>
-        <p>Price:{product.price}$</p>
-        <p>Release Date:
-        {product.releaseDate}</p>
+        <div>
+          <p>{product.description}</p>
+          <p>Price:{product.price}$</p>
+          <p>Release Date:{product.releaseDate}</p>
+        </div>
       </div>
       {/* <div>
         <img src={product.imageUrl} alt="" />
