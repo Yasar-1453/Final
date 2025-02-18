@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-let DBurl = "http://localhost:5156/api/Auth/Login"
+let DBurl = "http://localhost:5156/api/Auth/Register"
 import { NavLink } from 'react-router-dom';
 function Register() {
     let navigate = useNavigate()
@@ -12,15 +12,30 @@ function Register() {
         initialValues: {
             name: '',
             email:'',
-            username: '',
+            userName: '',
             password: '',
-            confirmpassword:''
+            cofirmPassword:''
 
 
         },
-        onSubmit: values => {
+        onSubmit: async values => {
             console.log('Submitting values:', values);
-            axios.post(DBurl, values)
+            try {
+                const response = await axios.post(DBurl, values, {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  });
+                  
+        if (response.status === 200 && response.data) {
+
+            console.log('Login successful', response.data);  
+            navigate("/");  
+          }           
+            } catch (error) {
+                
+            }
+          
         },
     })
 
@@ -29,8 +44,9 @@ function Register() {
 
     return (
         <>
-            <div className='cont'>
-                <form onSubmit={formik.handleSubmit} className='flex flex-col items-start gap-2 my-7'>
+            <div className='cont reg'>
+                
+                <form onSubmit={formik.handleSubmit} className='flex flex-col items-center gap-2 my-7'>
 
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="name">Name:</label>
@@ -57,14 +73,14 @@ function Register() {
                     </div>
 
                     <div className='flex flex-col items-start justify-between '>
-                        <label htmlFor="username">UserName:</label>
+                        <label htmlFor="userName">UserName:</label>
                         <input className='text-black'
                             required
-                            id="username"
-                            name="username"
+                            id="userName"
+                            name="userName"
                             type="text"
                             onChange={formik.handleChange}
-                            value={formik.values.username}
+                            value={formik.values.userName}
                         />
                     </div>
 
@@ -80,14 +96,14 @@ function Register() {
                         />
                     </div>
                     <div className='flex flex-col items-start justify-between '>
-                        <label htmlFor="confirmpassword">Confirm Password:</label>
+                        <label htmlFor="cofirmPassword">Confirm Password:</label>
                         <input className='text-black'
                             required
-                            id="confirmpassword"
-                            name="confirmpassword"
-                            type="confirmpassword"
+                            id="cofirmPassword"
+                            name="cofirmPassword"
+                            type="cofirmPassword"
                             onChange={formik.handleChange}
-                            value={formik.values.confirmpassword}
+                            value={formik.values.cofirmPassword}
                         />
                     </div>
 
@@ -95,7 +111,7 @@ function Register() {
 
                     <button type="submit" className='border border-white p-1'>Submit</button>
 
-                    <p>Already have an account? <NavLink to="/login">LogIn</NavLink></p>
+                    <p>Already have an account? <NavLink to="/login" className="underline">LogIn</NavLink></p>
 
                 </form>
             </div>

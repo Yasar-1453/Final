@@ -5,10 +5,11 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import { favoritesContext } from '../../context/FavoritesContext';
 import Swal from 'sweetalert2';
+import { basketContext } from '../../context/BasketContext';
 // import withReactContent from 'sweetalert2-react-content'
 function Navbar() {
   let { favorites, setFavorites } = useContext(favoritesContext)
-
+  let {basket,setBasket}=useContext(basketContext)
   function TrollCat() {
     Swal.fire({
       title: "Unfortunately we haven't created an app yet. With love from our team <3",
@@ -48,7 +49,7 @@ function Navbar() {
 
         </div>
         <div className='flex items-center gap-2'>
-          <NavLink to="/basket" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaCartShopping /></NavLink>
+          <NavLink to="/basket" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaCartShopping /></NavLink><span>{basket.length}</span>
           <NavLink to="/favorites" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaHeart /></NavLink><span>{favorites.length}</span>
         </div>
       </div>

@@ -16,10 +16,6 @@ function LogIn() {
 
     },
     onSubmit: async (values) => {
-      if (!values.Username || !values.Password) {
-        alert('Both username and password are required!');
-        return;
-      }
       console.log('Submitting values:', values);
 
       try {
@@ -29,13 +25,13 @@ function LogIn() {
             'Content-Type': 'application/json',
           },
         });
-        // Проверяем ответ от сервера
+
         if (response.status === 200 && response.data) {
-          // Если авторизация прошла успешно, перенаправляем на другую страницу
-          console.log('Login successful', response.data);  // Выводим данные о пользователе (или токен)
-          navigate("/");  // Переход на главную страницу
+
+          console.log('Login successful', response.data);  
+          navigate("/");  
         } else {
-          alert("Invalid login credentials!");  // Ошибка: неверные данные
+          alert("Invalid login credentials!"); 
         }
       } catch (error) {
         console.error('Login failed:', error.response ? error.response.data.errors : error);
@@ -47,8 +43,8 @@ function LogIn() {
   
   return (
     <>
-      <div className='cont'>
-        <form onSubmit={formik.handleSubmit} className='flex flex-col items-start gap-2 my-7'>
+      <div className='cont log'>
+        <form onSubmit={formik.handleSubmit} className='flex flex-col items-center gap-2 my-7'>
 
         <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="Username">UserName:</label>
@@ -76,9 +72,9 @@ function LogIn() {
 
 
 
-          <button type="submit" className='border border-black p-1'>Submit</button>
+          <button type="submit" className='border border-white p-1'>Submit</button>
 
-          <p>Dont have an account? <NavLink to="/register">Register</NavLink></p>
+          <p>Dont have an account? <NavLink to="/register" className="underline">Register</NavLink></p>
 
         </form>
       </div>
@@ -87,3 +83,61 @@ function LogIn() {
 }
 
 export default LogIn
+
+// import React, { useState } from 'react';
+// import axios from 'axios';
+
+// function LogIn() {
+//   const [Username, setUsername] = useState('');
+//   const [Password, setPassword] = useState('');
+//   const [error, setError] = useState('');
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault(); // Чтобы предотвратить перезагрузку страницы
+
+//     const url = 'http://localhost:5156/api/Auth/Login';
+//     const data = { Username, Password };
+
+//     try {
+//       const response = await axios.post(url, data);
+//       console.log('Ответ от сервера:', response.data);
+//       alert('Login successful!');
+//     } catch (error) {
+//       console.error('Ошибка при отправке данных:',  error.response ? error.response.data.errors : error);
+//       setError('Login failed. Please try again.');
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h2>Login Form</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label htmlFor="username">Username:</label>
+//           <input
+//             type="text"
+//             id="username"
+//             value={Username}
+//             onChange={(e) => setUsername(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="password">Password:</label>
+//           <input
+//             type="password"
+//             id="password"
+//             value={Password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             required
+//           />
+//         </div>
+//         {error && <p style={{ color: 'red' }}>{error}</p>}
+//         <button type="submit">Login</button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default LogIn;
+

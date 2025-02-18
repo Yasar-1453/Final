@@ -189,7 +189,15 @@ left: -35px !important;
   height: 65vh;
   object-fit: cover;
 }
+.reg,.log{
+  background-image: url("https://wallpapers.com/images/hd/pc-gaming-green-lights-bb587p382axi35vy.jpg");
+  background-position: center;
+  background-size: 99%;
+  border-radius: 30px;
+  padding: 20px 0;
+  margin: 20px auto;
 
+}
 
 @media (min-width: 992px) and (max-width:1200px) {
     .card{

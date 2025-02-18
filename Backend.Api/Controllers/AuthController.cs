@@ -17,7 +17,7 @@ namespace Backend.Api.Controllers
             _userService = userService;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> Register([FromForm] RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Login([FromForm] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             try
             {
