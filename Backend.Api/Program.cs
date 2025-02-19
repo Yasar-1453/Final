@@ -83,8 +83,11 @@ namespace Backend.Api
             });
             builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
             {
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequiredLength = 6;
+                opt.Password.RequireDigit = true;              // ? At least one digit
+                opt.Password.RequiredLength = 6;               // ? Minimum length
+                opt.Password.RequireNonAlphanumeric = false;   // ? No special character required
+                opt.Password.RequireUppercase = true;          // ? At least one uppercase letter
+                opt.Password.RequireLowercase = true;
 
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             builder.Services.AddDbContext<AppDbContext>(opt =>
