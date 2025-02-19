@@ -28,10 +28,11 @@ function LogIn() {
 
         if (response.status === 200 && response.data) {
 
-          console.log('Login successful', response.data);  
-          navigate("/");  
+          console.log('Login successful', response.data);
+          localStorage.setItem('Username', values.Username);
+          navigate("/");
         } else {
-          alert("Invalid login credentials!"); 
+          alert("Invalid login credentials!");
         }
       } catch (error) {
         console.error('Login failed:', error.response ? error.response.data.errors : error);
@@ -40,23 +41,23 @@ function LogIn() {
     },
   })
 
-  
+
   return (
     <>
       <div className='cont log'>
         <form onSubmit={formik.handleSubmit} className='flex flex-col items-center gap-2 my-7'>
 
-        <div className='flex flex-col items-start justify-between '>
-                        <label htmlFor="Username">UserName:</label>
-                        <input className='text-black'
-                            required
-                            id="Username"
-                            name="Username"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.Username}
-                        />
-                    </div>
+          <div className='flex flex-col items-start justify-between '>
+            <label htmlFor="Username">UserName:</label>
+            <input className='text-black'
+              required
+              id="Username"
+              name="Username"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.Username}
+            />
+          </div>
 
           <div className='flex flex-col items-start justify-between '>
             <label htmlFor="Password">Password:</label>

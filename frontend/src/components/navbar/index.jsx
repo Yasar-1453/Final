@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { GrLanguage } from "react-icons/gr";
 import { NavLink } from 'react-router-dom';
 import { FaCartShopping } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import { basketContext } from '../../context/BasketContext';
 function Navbar() {
   let { favorites, setFavorites } = useContext(favoritesContext)
   let {basket,setBasket}=useContext(basketContext)
+  const username = localStorage.getItem('Username');
   function TrollCat() {
     Swal.fire({
       title: "Unfortunately we haven't created an app yet. With love from our team <3",
@@ -30,13 +31,28 @@ function Navbar() {
       // }
     });
   }
+  const logout = () => {
+    localStorage.removeItem('Username');
+    navigate('/login');
+  };
+
   return (
     <>
       <div className='flex items-center justify-between py-2 cont'>
         <NavLink to="/"><img src="/media/logo.png" alt="" /></NavLink>
         <div className='flex items-center gap-2'>
           <GrLanguage className='text-white text-xl ' />
-          <NavLink to="/login" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>LogIn</NavLink>
+        <div>
+        {username ? (
+        <div className='flex items-center gap-2'>
+          <p>{username}</p>
+          <p className='cursor-pointer' onClick={logout}>log out</p>
+        </div>
+        
+      ) :(
+        <NavLink to="/login" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>LogIn</NavLink>
+      )}
+        </div>
           <p className='cursor-pointer' onClick={TrollCat}>Download</p>
         </div>
       </div>
