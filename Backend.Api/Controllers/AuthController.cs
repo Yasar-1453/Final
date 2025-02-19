@@ -1,4 +1,5 @@
 ﻿using Backend.Api.DTO.User;
+using Backend.Api.Helpers.Email;
 using Backend.Api.Models;
 using Backend.Api.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,13 @@ namespace Backend.Api.Controllers
     {
         readonly IUserService _userService;
         readonly UserManager<AppUser> _userManager;
+        readonly IMailService _mailService;
 
-        public AuthController(IUserService userService, UserManager<AppUser> userManager)
+        public AuthController(IUserService userService, UserManager<AppUser> userManager, IMailService mailService)
         {
             _userService = userService;
             _userManager = userManager;
+            _mailService = mailService;
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
@@ -62,6 +65,14 @@ namespace Backend.Api.Controllers
                 token = token
             };
             var link = Url.Action("ResetPassword", "Auth", userStat,HttpContext.Request.Scheme);
+            MailRequest mailRequest = new MailRequest()
+            {
+                ToEmail = dto.Email,
+                Subject = "Reset Password",
+                Body = $"<a href='{link}'> Reset Password</a>"
+            };
+
+            await _mailService.SendEmailAsync(mailRequest);
 
             return Ok(new
             {

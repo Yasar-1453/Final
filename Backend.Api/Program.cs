@@ -1,5 +1,6 @@
 
 using Backend.Api.DAL;
+using Backend.Api.Helpers.Email;
 using Backend.Api.Models;
 using Backend.Api.Repositories.Implementations;
 using Backend.Api.Repositories.Interface;
@@ -81,6 +82,8 @@ namespace Backend.Api
                     }
                 });
             });
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IMailService, MailService>();
             builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
             {
                 opt.Password.RequireDigit = true;              // ? At least one digit
