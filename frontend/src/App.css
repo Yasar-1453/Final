@@ -270,6 +270,44 @@ left: -35px !important;
   outline: none;
 }
 
+.search-results{
+  background-color: rgb(10, 6, 25,0.5);;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200%;
+  z-index: 10;
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.search-results::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; 
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+
+.search-results::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+.search-results::-webkit-scrollbar-thumb:hover {
+ background:rgb(192, 240, 1,0.8); 
+}
+
+.searched-img{
+  width: 150px;
+}
+.searched-img img{
+  width: 100%;
+  object-fit: cover;
+}
+
 @media (min-width: 992px) and (max-width:1200px) {
     .card{
         width: 40%;

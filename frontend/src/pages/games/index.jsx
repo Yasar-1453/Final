@@ -16,8 +16,8 @@ function Games() {
   let [genreData, setGenreData] = useState([]);
   let { favorites, setFavorites } = useContext(favoritesContext);
   let [isVisible, setIsVisible] = useState(false);
-  let [searchQuery, setSearchQuery] = useState(""); // Состояние для поиска
-  let [filteredData, setFilteredData] = useState(data); // Состояние для фильтрации данных
+  let [searchQuery, setSearchQuery] = useState("")
+  let [filteredData, setFilteredData] = useState(data)
 
   function getData() {
     axios.get(gameUrl)
@@ -47,6 +47,9 @@ function Games() {
       product.name.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
+
+    // const limitedResults = filtered.slice(0, 3);
+    // setFilteredData(limitedResults);
   };
 
   function handleAddFavorite(product) {
@@ -169,6 +172,7 @@ function Games() {
               onChange={handleSearch}
             />
           </div>
+
           <button className='sort-btn mb-2' onClick={handleSortByPrice}>From cheap to expensive</button>
           <button className='sort-btn mb-2' onClick={handleSortByPriceReverse}>From expensive to cheap</button>
           <button className='sort-btn mb-2' onClick={getData}>Reset</button>

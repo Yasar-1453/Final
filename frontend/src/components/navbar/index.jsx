@@ -7,12 +7,40 @@ import { favoritesContext } from '../../context/FavoritesContext';
 import Swal from 'sweetalert2';
 import { basketContext } from '../../context/BasketContext';
 import { TiArrowSortedDown } from "react-icons/ti";
+const gameUrl = "http://localhost:5156/api/Game";
+import axios from "axios";
 // import withReactContent from 'sweetalert2-react-content'
 function Navbar() {
   let { favorites, setFavorites } = useContext(favoritesContext)
   let { basket, setBasket } = useContext(basketContext)
   let [username, setUsername] = useState(localStorage.getItem('Username'));
-  let [isVisible, setIsVisible] = useState(false);
+  let [isVisible, setIsVisible] = useState(false)
+  let [data, setData] = useState([]);
+  let [searchQuery, setSearchQuery] = useState("")
+  let [filteredData, setFilteredData] = useState(data)
+
+  function getData() {
+    axios.get(gameUrl).then((res) => {
+      setData(res.data);
+    });
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = data.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
+    setFilteredData(filtered);
+
+    // const limitedResults = filtered.slice(0, 3);
+    // setFilteredData(limitedResults);
+  };
 
   function TrollCat() {
     Swal.fire({
@@ -76,17 +104,45 @@ function Navbar() {
           <p className='cursor-pointer' onClick={TrollCat}>Download</p>
         </div>
       </div>
-      <div className='cont flex justify-center flex-wrap'>
-        <div className='flex gap-2'>
-          <NavLink to="/" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>Home</NavLink>
-          <NavLink to="/games" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>All Games</NavLink>
-          <NavLink></NavLink>
-          <NavLink></NavLink>
+      <div className='cont flex flex-col justify-center items-center flex-wrap gap-2'>
 
+        <div className='flex items-center'>
+          <div className='flex gap-2'>
+            <NavLink to="/" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>Home</NavLink>
+            <NavLink to="/games" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>All Games</NavLink>
+            <NavLink></NavLink>
+            <NavLink></NavLink>
+
+          </div>
+          <div className='flex items-center gap-2'>
+            <NavLink to="/basket" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaCartShopping /></NavLink><span>{basket.length}</span>
+            <NavLink to="/favorites" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaHeart /></NavLink><span>{favorites.length}</span>
+          </div>
         </div>
-        <div className='flex items-center gap-2'>
-          <NavLink to="/basket" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaCartShopping /></NavLink><span>{basket.length}</span>
-          <NavLink to="/favorites" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaHeart /></NavLink><span>{favorites.length}</span>
+        <div className="search-container relative" style={{width:"265px"}}>
+          <input className='search flex'
+            type="text"
+            placeholder="Search for games..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+          <div className="search-results">
+            {searchQuery && filteredData.length > 0 ? (
+              <div className="found-games">
+                {filteredData.map((product) => (
+                  <div key={product.id} className="founded-game flex py-1">
+                    <div className='searched-img'><img src={product.imageUrl} alt="" /></div>
+                    <div className='ml-1 flex flex-col justify-center'>
+                      <NavLink to={`/games/${product.id}`}><h2>{product.name}</h2></NavLink>
+                      <p>{product.price}<span style={{ color: " #C0F001" }}>$</span></p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : searchQuery && filteredData.length === 0 ? (
+              <p>No games found</p>
+            ) : null}
+          </div>
         </div>
       </div>
     </>

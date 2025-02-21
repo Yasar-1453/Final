@@ -6,18 +6,19 @@ import { NavLink } from 'react-router-dom';
 const gameUrl = "http://localhost:5156/api/Game";
 
 function Home() {
-  const [data, setData] = useState([]);
-
-
-  useEffect(() => {
-    getData();
-  }, []);
+  let [data, setData] = useState([]);
 
   function getData() {
     axios.get(gameUrl).then((res) => {
       setData(res.data);
     });
   }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
 
   const settings = {
     dots: true,
@@ -30,6 +31,8 @@ function Home() {
 
   };
 
+  
+
   return (
     <>
 
@@ -39,9 +42,9 @@ function Home() {
           <div className='slider'>
             <img src='https://img.freepik.com/premium-photo/dark-background-stage-copy-space-colorful-neon-green-lights-bright-reflections-3d-render_334678-431.jpg?semt=ais_hybrid' alt="Extra Image" />
             <div className="wlcm">
-              <p>Welcome</p> 
+              <p>Welcome</p>
               <p className='flex items-center gap-1'>To Our Store <GiNestedHearts /></p>
-              </div>
+            </div>
 
           </div>
           {data.map((game, index) => (
