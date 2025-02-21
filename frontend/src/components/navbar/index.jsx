@@ -49,21 +49,23 @@ function Navbar() {
 
   return (
     <>
-      <div className='flex items-center justify-between py-2 cont'>
+      <div className='flex items-center justify-between py-2 cont flex-wrap'>
         <NavLink to="/"><img src="/media/logo.png" alt="" /></NavLink>
         <div className='flex items-center gap-2'>
           <GrLanguage className='text-white text-xl ' />
           <div>
             {username ? (
-              <div className='flex items-center gap-2 username'>
-                <div className='' onClick={toggleVisibility}>{username}</div><span onClick={toggleVisibility}><TiArrowSortedDown /></span>
+              <div className='flex items-center username'>
+                <div className='flex items-center' >
+                  <p className='' onClick={toggleVisibility}>{username}</p>
+                  <p onClick={toggleVisibility}><TiArrowSortedDown /></p>
+                </div>
                 {isVisible && <div>
                   <div className='userprofile'>
-                    <NavLink to="userprofile">profile</NavLink>
+                    <p><NavLink to="userprofile">profile</NavLink></p>
                     <p className='cursor-pointer' onClick={logout}>log out</p>
                   </div>
                 </div>}
-
 
               </div>
 
@@ -74,7 +76,7 @@ function Navbar() {
           <p className='cursor-pointer' onClick={TrollCat}>Download</p>
         </div>
       </div>
-      <div className='cont flex justify-center'>
+      <div className='cont flex justify-center flex-wrap'>
         <div className='flex gap-2'>
           <NavLink to="/" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>Home</NavLink>
           <NavLink to="/games" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}>All Games</NavLink>

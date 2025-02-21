@@ -42,7 +42,7 @@ function Favorites() {
                     <p style={{ fontSize: "1.2rem" }}>{favorite.name}</p>
                    <div className="flex gap-2 items-center">
                    <p style={{ cursor: "pointer" }} onClick={() => handleDeleteFavorite(favorite.id)}><FaHeartBroken /></p>
-                   <p className="cursor-pointer p-1 border border-white" onClick={() => handleAddBasket(favorite)}>Add to cart</p>
+                   <p className="def-btn" onClick={() => handleAddBasket(favorite)}>Add to cart</p>
                    </div>
                   </div>
                 ))

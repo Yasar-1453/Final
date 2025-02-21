@@ -22,6 +22,11 @@ html{
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255,0.1);
+    padding: 10px 0;
+    width: 80%;
 }
 .card{
     width: 20%;
@@ -29,6 +34,13 @@ html{
     flex-direction: column;
     gap: 10px;
     font-family: "Rubik", serif;
+}
+.games-wrapper{
+  display: flex;
+  gap: 10px;
+  background-color: rgb(255, 255, 255,0.1);
+  padding: 10px;
+  /* min-height:500px; */
 }
 .game-info{
     display: flex;
@@ -49,6 +61,7 @@ html{
     top: 0;
     left: 0;
     background-color: rgb(255, 255, 255,0.2);
+
     border-radius: 10px;
     .fav-icon{
         display: flex;
@@ -151,13 +164,24 @@ html{
   text-align: center;
   margin: 20px 0;
 }
-.genre-btn{
+.genre-btn,.sort-btn,.def-btn{
   background-color: rgb(192, 240, 1,0.7);
   border: 2px solid white;
   border-radius: 10px;
   padding: 7px;
+  cursor: pointer;
 }
 .genre-btn:hover{
+  color:rgb(192, 240, 1) ;
+  background-color: transparent;
+  border: 2px solid white;
+}
+.sort-btn:hover{
+  color:rgb(192, 240, 1) ;
+  background-color: transparent;
+  border: 2px solid white;
+}
+.def-btn:hover{
   color:rgb(192, 240, 1) ;
   background-color: transparent;
   border: 2px solid white;
@@ -202,20 +226,48 @@ left: -35px !important;
 .username{
   position: relative;
   cursor: pointer;
-  /* width: 100px; */
-  
+  width: 100%;
+
 }
 
 .userprofile{
-  border: 1px solid white;
+
   position: absolute;
   top: 250%;
   left: 50%;
   transform: translate(-50%,-50%);
-  /* width: 100px; */
+  width: 100px;
   color: white;
   text-align: center;
   padding: 5px;
+  z-index: 10;
+  p{
+    border: 1px solid white;
+    background-color: rgb(10, 6, 25);
+    &:hover{
+      color: #0A0619;
+      background-color: white;
+    }
+  }
+}
+.sort-filter{
+  width: 20%;
+  /* background-color: rgb(255, 255, 255,0.1); */
+  border-radius: 20px;
+  padding: 10px ;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  font-size:13px ;
+}
+
+.search{
+  background-color: #0A0619;
+  color:  #C0F001;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  outline: none;
 }
 
 @media (min-width: 992px) and (max-width:1200px) {
@@ -239,5 +291,14 @@ left: -35px !important;
 
       .card{
         width: 100%;
+    }
+    .games-wrapper{
+      display: block;
+    }
+    .sort-filter{
+      width: 100%;
+    }
+    .cards{
+      width: 100%;
     }
   }

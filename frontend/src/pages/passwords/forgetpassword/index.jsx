@@ -38,6 +38,8 @@ function ForgetPassword() {
     return (
         <>
             <div className='cont reg'>
+                <p className='text-center'>Add an active email to reset your password</p>
+                <p className='text-center'>We will send you a letter to this email</p>
                 <form onSubmit={formik.handleSubmit} className='flex flex-col items-center gap-2 my-7'>
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="email">Email:</label>

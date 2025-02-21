@@ -116,7 +116,7 @@ function Admin() {
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.price}</td>
-                                <td><button className='delete-btn' onClick={() => deleteData(product._id)}>Delete</button></td>
+                                <td><button className='delete-btn' onClick={() => deleteData(product.id)}>Delete</button></td>
                             </tr>
                         ))
                     }
