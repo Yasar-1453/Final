@@ -19,7 +19,6 @@ function LogIn() {
       console.log('Submitting values:', values);
 
       try {
-        // Отправляем запрос на сервер
         const response = await axios.post(DBurl, values, {
           headers: {
             'Content-Type': 'application/json',
@@ -31,6 +30,7 @@ function LogIn() {
           console.log('Login successful', response.data);
           localStorage.setItem('Username', values.Username);
           navigate("/");
+          window.location.reload();
         } else {
           alert("Invalid login credentials!");
         }
@@ -49,7 +49,7 @@ function LogIn() {
 
           <div className='flex flex-col items-start justify-between '>
             <label htmlFor="Username">UserName:</label>
-            <input className='text-black'
+            <input className='text-black'  style={{width:"300px"}}
               required
               id="Username"
               name="Username"
@@ -61,7 +61,7 @@ function LogIn() {
 
           <div className='flex flex-col items-start justify-between '>
             <label htmlFor="Password">Password:</label>
-            <input className='text-black'
+            <input className='text-black'  style={{width:"300px"}}
               required
               id="Password"
               name="Password"
@@ -71,7 +71,7 @@ function LogIn() {
             />
           </div>
 
-
+          <NavLink to="/forgetPassword"><p>Forget password?</p></NavLink>
 
           <button type="submit" className='border border-white p-1'>Submit</button>
 
@@ -84,61 +84,4 @@ function LogIn() {
 }
 
 export default LogIn
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// function LogIn() {
-//   const [Username, setUsername] = useState('');
-//   const [Password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault(); // Чтобы предотвратить перезагрузку страницы
-
-//     const url = 'http://localhost:5156/api/Auth/Login';
-//     const data = { Username, Password };
-
-//     try {
-//       const response = await axios.post(url, data);
-//       console.log('Ответ от сервера:', response.data);
-//       alert('Login successful!');
-//     } catch (error) {
-//       console.error('Ошибка при отправке данных:',  error.response ? error.response.data.errors : error);
-//       setError('Login failed. Please try again.');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Login Form</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="username">Username:</label>
-//           <input
-//             type="text"
-//             id="username"
-//             value={Username}
-//             onChange={(e) => setUsername(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={Password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         {error && <p style={{ color: 'red' }}>{error}</p>}
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LogIn;
 

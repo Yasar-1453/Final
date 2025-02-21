@@ -1,16 +1,26 @@
 import { FaHeartBroken } from "react-icons/fa";
 import React, { useContext } from 'react'
 import { favoritesContext } from "../../context/FavoritesContext";
-
-
-
+import { basketContext } from "../../context/BasketContext";
 
 function Favorites() {
   let { favorites, setFavorites } = useContext(favoritesContext)
+  let { basket, setBasket } = useContext(basketContext)
 
   function handleDeleteFavorite(id) {
     let delFav = favorites.filter(favorite => favorite.id !== id)
     setFavorites(delFav)
+  }
+
+  function handleAddBasket(product) {
+    let findBasket = basket.find(item => item.id == product.id)
+    if (findBasket) {
+      findBasket.count++
+      setBasket([...basket])
+    } else {
+      setBasket([...basket, { ...product, count: 1 }])
+
+    }
   }
   return (
     <div className="cont">
@@ -32,7 +42,7 @@ function Favorites() {
                     <p style={{ fontSize: "1.2rem" }}>{favorite.name}</p>
                    <div className="flex gap-2 items-center">
                    <p style={{ cursor: "pointer" }} onClick={() => handleDeleteFavorite(favorite.id)}><FaHeartBroken /></p>
-                   <p>Add to cart</p>
+                   <p className="cursor-pointer p-1 border border-white" onClick={() => handleAddBasket(favorite)}>Add to cart</p>
                    </div>
                   </div>
                 ))

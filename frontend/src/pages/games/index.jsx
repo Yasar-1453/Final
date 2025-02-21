@@ -6,12 +6,14 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { NavLink } from 'react-router-dom';
 import Slider from 'react-slick';
+import { basketContext } from '../../context/BasketContext';
 let gameUrl = "http://localhost:5156/api/Game"
 let genreUrl = "http://localhost:5156/api/Genre"
 
 
 function Games() {
   let [data, setData] = useState([])
+  let { basket, setBasket } = useContext(basketContext)
   let [genreData, setGenreData] = useState([])
   let { favorites, setFavorites } = useContext(favoritesContext)
   let [isVisible, setIsVisible] = useState(false);
@@ -142,6 +144,7 @@ function Games() {
               <div className='game-info'>
                 <NavLink to={`/games/${product.id}`}><h1>{product.name}</h1></NavLink>
                 <p>{product.price}<span style={{ color: " #C0F001" }}>$</span></p>
+               
               </div>
             </div>
           ))

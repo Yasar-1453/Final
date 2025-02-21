@@ -1,9 +1,4 @@
 import React, { useContext } from 'react'
-// import RemoveIcon from '@mui/icons-material/Remove';
-// import AddIcon from '@mui/icons-material/Add';
-// import DeleteIcon from '@mui/icons-material/Delete';
-
-// import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { basketContext } from '../../context/BasketContext';
@@ -53,9 +48,9 @@ function Basket() {
             <h1 style={{ textAlign: "center" }}>Your Basket</h1>
             <table style={{ width: "80%", margin: "0 auto" }}>
               <thead>
-                <tr>
-                  <th>image</th>
-                  <th>Title</th>
+                <tr className='text-left'>
+                  <th>Image</th>
+                  <th>Name</th>
                   <th>Price</th>
                   <th>Total Price</th>
                   <th>Decrease</th>
@@ -68,14 +63,14 @@ function Basket() {
                 {
                   basket.map(item => (
                     <tr key={item.id}>
-                      <td><img src={item.image} alt="" style={{ width: "80px", height: "80px", objectFit: "contain" }} /></td>
-                      <td>{item.title}</td>
+                      <td><img src={item.imageUrl} alt="" style={{ width: "80px", height: "80px", objectFit: "contain" }} /></td>
+                      <td>{item.name}</td>
                       <td>{item.price}$</td>
                       <td>{(item.price * item.count).toFixed(2)}$</td>
-                      {/* <td><IconButton onClick={() => handleDecrease(item)}><RemoveIcon /></IconButton></td>
+                      <td><button onClick={() => handleDecrease(item)}>-</button></td>
                       <td>{item.count}</td>
-                      <td><IconButton onClick={() => handleIncrease(item)}><AddIcon /></IconButton></td>
-                      <td><IconButton onClick={() => handleDelete(item)}><DeleteIcon /></IconButton></td> */}
+                      <td><button onClick={() => handleIncrease(item)}>+</button></td>
+                      <td><button onClick={() => handleDelete(item)}>Delete</button></td>
                     </tr>
                   ))
                 }

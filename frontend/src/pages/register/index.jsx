@@ -29,11 +29,11 @@ function Register() {
                   
         if (response.status === 200 && response.data) {
 
-            console.log('Login successful', response.data);  
+            console.log('reg successful', response.data);  
             navigate("/");  
           }           
             } catch (error) {
-                
+                console.error('register failed:', error.response ? error.response.data.errors : error);
             }
           
         },
@@ -50,7 +50,7 @@ function Register() {
 
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="name">Name:</label>
-                        <input className='text-black'
+                        <input className='text-black' style={{width:"300px"}}
                             required
                             id="name"
                             name="name"
@@ -62,7 +62,7 @@ function Register() {
 
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="email">Email:</label>
-                        <input className='text-black'
+                        <input className='text-black' style={{width:"300px"}}
                             required
                             id="email"
                             name="email"
@@ -74,7 +74,7 @@ function Register() {
 
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="userName">UserName:</label>
-                        <input className='text-black'
+                        <input className='text-black' style={{width:"300px"}}
                             required
                             id="userName"
                             name="userName"
@@ -86,7 +86,7 @@ function Register() {
 
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="password">Password:</label>
-                        <input className='text-black'
+                        <input className='text-black' style={{width:"300px"}}
                             required
                             id="password"
                             name="password"
@@ -97,7 +97,7 @@ function Register() {
                     </div>
                     <div className='flex flex-col items-start justify-between '>
                         <label htmlFor="cofirmPassword">Confirm Password:</label>
-                        <input className='text-black'
+                        <input className='text-black' style={{width:"300px"}}
                             required
                             id="cofirmPassword"
                             name="cofirmPassword"
@@ -106,7 +106,7 @@ function Register() {
                             value={formik.values.cofirmPassword}
                         />
                     </div>
-
+            
 
 
                     <button type="submit" className='border border-white p-1'>Submit</button>
