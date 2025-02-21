@@ -36,6 +36,8 @@ namespace Backend.Api
             builder.Services.AddScoped<IGameKeyService, GameKeyService>();
             builder.Services.AddScoped<IGameService, GameService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IBasketService, BasketService>();
+
 
             //Repository
             builder.Services.AddScoped<IFeaturesRepository, FeaturesRepository>();

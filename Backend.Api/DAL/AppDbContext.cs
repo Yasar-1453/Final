@@ -15,6 +15,8 @@ namespace Backend.Api.DAL
         public DbSet<GameKey> GameKeys { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Feature> Features { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +58,26 @@ namespace Backend.Api.DAL
                 .HasForeignKey(x => x.FeaturesId);
 
 
+            modelBuilder.Entity<BasketItem>()
+                .HasOne(bi => bi.Basket)
+                .WithMany(b => b.Items)
+                .HasForeignKey(bi => bi.BasketId);
+
+            modelBuilder.Entity<Basket>()
+                .HasMany(bi => bi.Items)
+                .WithOne(b => b.Basket)
+                .HasForeignKey(bi => bi.BasketId);
+
+
+            modelBuilder.Entity<BasketItem>()
+                .HasOne(bi => bi.Game)
+                .WithMany(b=>b.Items)
+                .HasForeignKey(bi => bi.GameId);
+
+            modelBuilder.Entity<Game>()
+                .HasMany(bi => bi.Items)
+                .WithOne(b => b.Game)
+                .HasForeignKey(bi => bi.GameId);
         }
 
     }

@@ -64,7 +64,7 @@ namespace Backend.Api.Controllers
                 userId = user.Email,
                 token = token
             };
-            var link = Url.Action("ResetPassword", "Auth", userStat,HttpContext.Request.Scheme);
+            var link = $"http://localhost:5173/resetPassword";
             MailRequest mailRequest = new MailRequest()
             {
                 ToEmail = dto.Email,

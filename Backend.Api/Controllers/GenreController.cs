@@ -44,7 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateGenreDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateGenreDto dto)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateGenreDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateGenreDto dto)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        public async Task<IActionResult> SoftDelete([FromForm] int id)
+        public async Task<IActionResult> SoftDelete([FromBody] int id)
         {
             try
             {

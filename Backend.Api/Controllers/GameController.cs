@@ -79,7 +79,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        public async Task<IActionResult> SoftDelete([FromForm] int id)
+        public async Task<IActionResult> SoftDelete([FromBody] int id)
         {
             try
             {

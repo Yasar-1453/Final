@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250216184820_addtables")]
-    partial class addtables
+    [Migration("20250221211233_Basket")]
+    partial class Basket
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,6 +93,49 @@ namespace Backend.Api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Api.Models.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Basket");
+                });
+
+            modelBuilder.Entity("Backend.Api.Models.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("BasketItem");
                 });
 
             modelBuilder.Entity("Backend.Api.Models.Feature", b =>
@@ -351,6 +394,25 @@ namespace Backend.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Backend.Api.Models.BasketItem", b =>
+                {
+                    b.HasOne("Backend.Api.Models.Basket", "Basket")
+                        .WithMany("Items")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.Api.Models.Game", "Game")
+                        .WithMany("Items")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("Backend.Api.Models.Game", b =>
                 {
                     b.HasOne("Backend.Api.Models.Feature", "Features")
@@ -432,6 +494,11 @@ namespace Backend.Api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Backend.Api.Models.Basket", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Backend.Api.Models.Feature", b =>
                 {
                     b.Navigation("Games");
@@ -440,6 +507,8 @@ namespace Backend.Api.Migrations
             modelBuilder.Entity("Backend.Api.Models.Game", b =>
                 {
                     b.Navigation("GameKeys");
+
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Backend.Api.Models.Genre", b =>

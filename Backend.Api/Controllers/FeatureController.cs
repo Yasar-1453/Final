@@ -44,7 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateFeatureDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateFeatureDto dto)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateFeatureDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateFeatureDto dto)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
             {

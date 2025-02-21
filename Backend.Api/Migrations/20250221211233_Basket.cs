@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class addtables : Migration
+    public partial class Basket : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,19 @@ namespace Backend.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Basket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Basket", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,6 +234,33 @@ namespace Backend.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BasketItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BasketId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasketItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BasketItem_Basket_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Basket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BasketItem_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameKeys",
                 columns: table => new
                 {
@@ -283,6 +323,16 @@ namespace Backend.Api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BasketItem_BasketId",
+                table: "BasketItem",
+                column: "BasketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItem_GameId",
+                table: "BasketItem",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GameKeys_GameId",
                 table: "GameKeys",
                 column: "GameId");
@@ -317,6 +367,9 @@ namespace Backend.Api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BasketItem");
+
+            migrationBuilder.DropTable(
                 name: "GameKeys");
 
             migrationBuilder.DropTable(
@@ -324,6 +377,9 @@ namespace Backend.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Basket");
 
             migrationBuilder.DropTable(
                 name: "Games");

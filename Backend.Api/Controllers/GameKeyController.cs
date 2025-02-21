@@ -42,7 +42,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateGameKeyDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateGameKeyDto dto)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateGameKeyDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateGameKeyDto dto)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        public async Task<IActionResult> SoftDelete([FromForm] int id)
+        public async Task<IActionResult> SoftDelete([FromBody] int id)
         {
             try
             {
