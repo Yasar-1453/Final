@@ -9,7 +9,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class GameController : ControllerBase
     {
         readonly IGameService _service;

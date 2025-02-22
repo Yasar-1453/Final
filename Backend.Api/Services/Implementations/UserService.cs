@@ -16,12 +16,14 @@ namespace Backend.Api.Services.Implementations
         private readonly UserManager<AppUser> _userManager;
         readonly IConfiguration _config;
         readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _env;
 
-        public UserService(UserManager<AppUser> userManager, IMapper mapper, IConfiguration config)
+        public UserService(UserManager<AppUser> userManager, IMapper mapper, IConfiguration config, IWebHostEnvironment env)
         {
             _userManager = userManager;
             _mapper = mapper;
             _config = config;
+            _env = env;
         }
 
         public async Task<string> Login(LoginDto loginDto)
@@ -66,6 +68,11 @@ namespace Backend.Api.Services.Implementations
 
             var appUser = _mapper.Map<AppUser>(dto);
 
+            if (dto.ProfilePhoto != null && dto.ProfilePhoto.Length > 0)
+            {
+                string photoPath = await SaveProfilePhotoAsync(dto.ProfilePhoto);
+                appUser.ProfilePhotoPath = photoPath;
+            }
 
             var result = await _userManager.CreateAsync(appUser, dto.Password);
 
@@ -83,5 +90,56 @@ namespace Backend.Api.Services.Implementations
                 }
             }
         }
+
+        public async Task<string> UpdateProfilePhotoAsync(string userId, IFormFile profilePhoto)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) throw new Exception("User not found.");
+
+            user.ProfilePhotoPath = await SaveProfilePhotoAsync(profilePhoto);
+            await _userManager.UpdateAsync(user);
+
+            return user.ProfilePhotoPath;
+        }
+
+        public async Task<AppUser> EditUserAsync(string userId, EditUserDto dto)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) throw new Exception("User not found.");
+
+            user.UserName = dto.Username ?? user.UserName;
+            user.Name = dto.Name ?? user.Name;
+            user.Email = dto.Email ?? user.Email;
+
+            if (dto.ProfilePhoto != null)
+            {
+                user.ProfilePhotoPath = await SaveProfilePhotoAsync(dto.ProfilePhoto);
+            }
+
+            await _userManager.UpdateAsync(user);
+            return user;
+        }
+
+        public async Task<AppUser> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found.");
+        }
+
+        private async Task<string> SaveProfilePhotoAsync(IFormFile profilePhoto)
+        {
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "profile-photos");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(profilePhoto.FileName);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using var stream = new FileStream(filePath, FileMode.Create);
+            await profilePhoto.CopyToAsync(stream);
+
+            return $"/profile-photos/{fileName}";
+        }
+
+
     }
 }

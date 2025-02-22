@@ -111,5 +111,25 @@ namespace Backend.Api.Controllers
 
             return Ok(new { message = "Password has been reset successfully." });
         }
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(string userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            return Ok(user);
+        }
+
+        [HttpPut("{userId}/edit")]
+        public async Task<IActionResult> EditUser(string userId, EditUserDto dto)
+        {
+            var updatedUser = await _userService.EditUserAsync(userId, dto);
+            return Ok(updatedUser);
+        }
+
+        [HttpPost("{userId}/upload-photo")]
+        public async Task<IActionResult> UploadProfilePhoto(string userId, IFormFile profilePhoto)
+        {
+            var photoPath = await _userService.UpdateProfilePhotoAsync(userId, profilePhoto);
+            return Ok(new { message = "Profile photo uploaded successfully", photoPath });
+        }
     }
 }
