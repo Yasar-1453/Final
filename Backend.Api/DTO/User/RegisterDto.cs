@@ -9,7 +9,7 @@ namespace Backend.Api.DTO.User
         public string Email { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string CofirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
 
         public IFormFile? ProfilePhoto { get; set; }
     }
@@ -42,7 +42,7 @@ namespace Backend.Api.DTO.User
             RuleFor(u => u)
                 .NotEmpty()
                 .NotNull()
-                .Must(u => u.Password == u.CofirmPassword);
+                .Must(u => u.Password == u.ConfirmPassword);
         }
     }
 }

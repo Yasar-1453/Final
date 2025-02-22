@@ -7,8 +7,8 @@ namespace Backend.Api.DTO.User
         [Required]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
-        //[DataType(DataType.Password), Compare(nameof(NewPassword))]
-        //public string ConfirmNewPassword { get; set; }
+        [DataType(DataType.Password), Compare(nameof(NewPassword))]
+        public string ConfirmNewPassword { get; set; }
         public string token { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]

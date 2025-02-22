@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Basket : Migration
+    public partial class Tables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,7 @@ namespace Backend.Api.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ProfilePhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,7 +53,7 @@ namespace Backend.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Basket",
+                name: "Baskets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,7 +62,7 @@ namespace Backend.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Basket", x => x.Id);
+                    table.PrimaryKey("PK_Baskets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,7 +235,7 @@ namespace Backend.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BasketItem",
+                name: "BasketItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -245,15 +246,15 @@ namespace Backend.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BasketItem", x => x.Id);
+                    table.PrimaryKey("PK_BasketItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BasketItem_Basket_BasketId",
+                        name: "FK_BasketItems_Baskets_BasketId",
                         column: x => x.BasketId,
-                        principalTable: "Basket",
+                        principalTable: "Baskets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BasketItem_Games_GameId",
+                        name: "FK_BasketItems_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
@@ -323,13 +324,13 @@ namespace Backend.Api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItem_BasketId",
-                table: "BasketItem",
+                name: "IX_BasketItems_BasketId",
+                table: "BasketItems",
                 column: "BasketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItem_GameId",
-                table: "BasketItem",
+                name: "IX_BasketItems_GameId",
+                table: "BasketItems",
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
@@ -367,7 +368,7 @@ namespace Backend.Api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BasketItem");
+                name: "BasketItems");
 
             migrationBuilder.DropTable(
                 name: "GameKeys");
@@ -379,7 +380,7 @@ namespace Backend.Api.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Basket");
+                name: "Baskets");
 
             migrationBuilder.DropTable(
                 name: "Games");
