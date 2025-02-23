@@ -7,5 +7,6 @@ namespace Backend.Api.Models
     {
         public string Name { get; set; }
         public string ProfilePhotoPath { get; set; }
+        public string Role {  get; set; }
     }
 }

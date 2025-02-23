@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Security.Claims;
 
 namespace Backend.Api.Controllers
 {
@@ -25,12 +26,17 @@ namespace Backend.Api.Controllers
             _mailService = mailService;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        public async Task<IActionResult> Register(RegisterDto dto)
         {
             try
             {
-                await _userService.Register(dto);
+                string profilePhotoUrl = $"{Request.Scheme}://{Request.Host}"; 
+
+          
+                await _userService.Register(dto, profilePhotoUrl);
+             
                 return Ok();
+              
             }
             catch (Exception ex)
             {
@@ -94,13 +100,11 @@ namespace Backend.Api.Controllers
                 return BadRequest(new { message = "User not found." });
             }
 
-            // ✅ Trim password to remove hidden spaces
             var trimmedPassword = dto.NewPassword.Trim();
 
-            // ✅ URL-decode the token
+
             var decodedToken = Uri.UnescapeDataString(dto.token);
 
-            // ✅ Reset password
             var result = await _userManager.ResetPasswordAsync(user, decodedToken, trimmedPassword);
 
             if (!result.Succeeded)
@@ -121,15 +125,30 @@ namespace Backend.Api.Controllers
         [HttpPut("{userId}/edit")]
         public async Task<IActionResult> EditUser(string userId, EditUserDto dto)
         {
-            var updatedUser = await _userService.EditUserAsync(userId, dto);
+            string profilePhotoUrl = $"{Request.Scheme}://{Request.Host}";
+            var updatedUser = await _userService.EditUserAsync(userId, dto, profilePhotoUrl);
             return Ok(updatedUser);
         }
 
-        [HttpPost("{userId}/upload-photo")]
-        public async Task<IActionResult> UploadProfilePhoto(string userId, IFormFile profilePhoto)
+        [HttpGet("my-roles")]
+        [Authorize]
+        public IActionResult GetMyRoles()
         {
-            var photoPath = await _userService.UpdateProfilePhotoAsync(userId, profilePhoto);
-            return Ok(new { message = "Profile photo uploaded successfully", photoPath });
+            var roles = User.Claims
+                            .Where(c => c.Type == ClaimTypes.Role)
+                            .Select(c => c.Value)
+                            .ToList();
+
+            return Ok(new { roles });
+        }
+
+        // ✅ Get Roles for Any User (Admin Only)
+        [HttpGet("{username}/roles")]
+        [Authorize(Roles = "Admin")] // Only Admins can check other users' roles
+        public async Task<IActionResult> GetUserRoles(string username)
+        {
+            var roles = await _userService.GetUserRoles(username);
+            return Ok(new { username, roles });
         }
     }
 }

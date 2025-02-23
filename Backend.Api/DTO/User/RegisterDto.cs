@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Backend.Api.Helpers.Enums;
+using FluentValidation;
 using System.Text.RegularExpressions;
 
 namespace Backend.Api.DTO.User
@@ -10,8 +11,8 @@ namespace Backend.Api.DTO.User
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-
-        public IFormFile? ProfilePhoto { get; set; }
+        public Roles Role { get; set; } // ✅ Enum Role
+        public IFormFile ProfilePhoto { get; set; }
     }
 
     public class RegisterDtoValidator : AbstractValidator<RegisterDto>

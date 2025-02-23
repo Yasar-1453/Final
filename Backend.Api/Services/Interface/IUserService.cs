@@ -5,10 +5,10 @@ namespace Backend.Api.Services.Interface
 {
     public interface IUserService
     {
-        Task Register(RegisterDto dto);
+        Task Register(RegisterDto dto, string profilePhotoUrl);
         Task<string> Login(LoginDto dto);
-        Task<string> UpdateProfilePhotoAsync(string userId, IFormFile profilePhoto);
-        Task<AppUser> EditUserAsync(string userId, EditUserDto dto);
+        Task<AppUser> EditUserAsync(string userId, EditUserDto dto, string profilePhotoUrl);
+        Task<List<string>> GetUserRoles(string username);
         Task<AppUser> GetUserByIdAsync(string userId);
     }
 }
