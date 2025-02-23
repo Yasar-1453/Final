@@ -7,6 +7,7 @@ namespace Backend.Api.Models
     public class GameKey : BaseEntity
     {
         public string Key { get; set; } // Activation key
+        public long Price {  get; set; }
 
         public bool IsSold { get; set; } = false;
 

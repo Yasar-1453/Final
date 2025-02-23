@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Stripe;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -48,6 +49,8 @@ namespace Backend.Api
             builder.Services.AddAutoMapper(typeof(Program));
 
 
+            //payments
+            StripeConfiguration.ApiKey = builder.Configuration[key: "Stripe:SecretKey"];
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -106,7 +109,10 @@ namespace Backend.Api
                               .AllowAnyMethod()
                               .AllowCredentials();
                     });
+
             });
+
+            builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
             builder.Services.AddAuthentication(opt =>
             {
@@ -142,6 +148,7 @@ namespace Backend.Api
 
             app.UseHttpsRedirection();
             app.UseCors("AllowFrontend");
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 

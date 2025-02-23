@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Key { get; set; } // Activation key
+        public long Pricce { get; set; }
 
         public bool IsSold { get; set; } = false;
 
