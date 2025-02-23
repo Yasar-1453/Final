@@ -308,6 +308,24 @@ left: -35px !important;
   object-fit: cover;
 }
 
+.sidebar{
+  background-color: rgb(192, 240, 1,0.7);
+  width:20% ;
+  height: 100vh;
+  position: absolute;
+  padding: 30px 10px;
+}
+
+.sidebar-links{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-link{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 @media (min-width: 992px) and (max-width:1200px) {
     .card{
         width: 40%;
@@ -318,12 +336,28 @@ left: -35px !important;
       .card{
         width: 40%;
     }
+   
   }
   @media (min-width: 576px) and (max-width:768px) {
 
       .card{
         width: 100%;
     }
+    .admin-wrapper{
+      display: flex;
+      flex-direction: column;
+    }
+.admin-left{
+display: none;
+}
+.sidebar{
+  width: 100%;
+  height: auto;
+}
+.admin-right{
+  width: 100% !important;
+
+}
   }
   @media (max-width:576px) {
 
@@ -339,4 +373,20 @@ left: -35px !important;
     .cards{
       width: 100%;
     }
+
+    .admin-wrapper{
+      display: flex;
+      flex-direction: column;
+    }
+.admin-left{
+display: none;
+}
+.sidebar{
+  width: 100%;
+  height: auto;
+}
+.admin-right{
+  width: 100% !important;
+
+}
   }

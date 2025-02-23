@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { basketContext } from '../../context/BasketContext';
+import { basketContext } from '../../../context/BasketContext';
 function Basket() {
   let { basket, setBasket } = useContext(basketContext)
   let [totalPrice, setTotalPrice] = useState(0)

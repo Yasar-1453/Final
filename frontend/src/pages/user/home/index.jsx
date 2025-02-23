@@ -31,30 +31,35 @@ function Home() {
 
   };
 
-  
+
 
   return (
     <>
 
       <div className='slider-container'>
-
-        <Slider {...settings}>
+        {data.length == 0 ? (
           <div className='slider'>
             <img src='https://img.freepik.com/premium-photo/dark-background-stage-copy-space-colorful-neon-green-lights-bright-reflections-3d-render_334678-431.jpg?semt=ais_hybrid' alt="Extra Image" />
             <div className="wlcm">
               <p>Welcome</p>
               <p className='flex items-center gap-1'>To Our Store <GiNestedHearts /></p>
             </div>
-
-          </div>
-          {data.map((game, index) => (
-            <div key={index} className='slider'>
-              <img src={game.imageUrl} alt={`Game ${index}`} />
-              <NavLink to={`/games/${game.id}`}><button className='slider-btn'>Play Now</button></NavLink>
-              {/* <NavLink to={`/games/${game.id}`}> <img src={game.imageUrl} alt={`Game ${index}`} /></NavLink> */}
+          </div>) : (<Slider {...settings}>
+            <div className='slider'>
+              <img src='https://img.freepik.com/premium-photo/dark-background-stage-copy-space-colorful-neon-green-lights-bright-reflections-3d-render_334678-431.jpg?semt=ais_hybrid' alt="Extra Image" />
+              <div className="wlcm">
+                <p>Welcome</p>
+                <p className='flex items-center gap-1'>To Our Store <GiNestedHearts /></p>
+              </div>
             </div>
-          ))}
-        </Slider>
+            {data.map((game, index) => (
+              <div key={index} className='slider'>
+                <img src={game.imageUrl} alt={`Game ${index}`} />
+                <NavLink to={`/games/${game.id}`}><button className='slider-btn'>Play Now</button></NavLink>
+              </div>
+            ))}
+          </Slider>)}
+
       </div>
     </>
   )

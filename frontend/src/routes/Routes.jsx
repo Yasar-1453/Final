@@ -1,16 +1,19 @@
-import Admin from "../pages/admin"
-import Basket from "../pages/basket"
-import Details from "../pages/details"
-import Favorites from "../pages/favorites"
-import Games from "../pages/games"
-import Home from "../pages/home"
-import LogIn from "../pages/login"
-import NotFound from "../pages/not found"
-import ForgetPassword from "../pages/passwords/forgetpassword"
-import ResetPassword from "../pages/passwords/resetpassword"
-import Register from "../pages/register"
-import UserProfile from "../pages/userprofile"
-import UserRoot from "../pages/UserRoot"
+
+import AdminRoot from "../pages/admin/adminRoot"
+import Dashboard from "../pages/admin/dashboard"
+import GameDashboard from "../pages/admin/gameDash"
+import Basket from "../pages/user/basket"
+import Details from "../pages/user/details"
+import Favorites from "../pages/user/favorites"
+import Games from "../pages/user/games"
+import Home from "../pages/user/home"
+import LogIn from "../pages/user/login"
+import NotFound from "../pages/user/not found"
+import ForgetPassword from "../pages/user/passwords/forgetpassword"
+import ResetPassword from "../pages/user/passwords/resetpassword"
+import Register from "../pages/user/register"
+import UserProfile from "../pages/user/userprofile"
+import UserRoot from "../pages/user/UserRoot"
 
 
 
@@ -60,13 +63,23 @@ const Routes = [
                 element: <ResetPassword/>
             },
             {
-                path: "/admin",
-                element: <Admin/>
-            },
-            {
                 path: "/userprofile",
                 element: <UserProfile/>
             },
+        ]
+    },
+    {
+        path:"/admin",
+        element:<AdminRoot/>,
+        children:[
+            {
+                path: "dashboard",
+                element: <Dashboard/>,
+            },
+            {
+                path: "gameDashboard",
+                element: <GameDashboard/>,
+            }
         ]
     }
 ]

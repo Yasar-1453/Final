@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import Slider from "react-slick";
-import { basketContext } from '../../context/BasketContext';
+import { basketContext } from '../../../context/BasketContext';
 
 
 function Details() {

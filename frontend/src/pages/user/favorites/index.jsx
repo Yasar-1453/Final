@@ -1,7 +1,7 @@
 import { FaHeartBroken } from "react-icons/fa";
 import React, { useContext } from 'react'
-import { favoritesContext } from "../../context/FavoritesContext";
-import { basketContext } from "../../context/BasketContext";
+import { favoritesContext } from "../../../context/FavoritesContext";
+import { basketContext } from "../../../context/BasketContext";
 
 function Favorites() {
   let { favorites, setFavorites } = useContext(favoritesContext)

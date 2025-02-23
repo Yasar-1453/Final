@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from "axios"
 import { FaCirclePlus } from "react-icons/fa6";
-import { favoritesContext } from '../../context/FavoritesContext';
+import { favoritesContext } from '../../../context/FavoritesContext';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { NavLink } from 'react-router-dom';
 import Slider from 'react-slick';
-import { basketContext } from '../../context/BasketContext';
+import { basketContext } from '../../../context/BasketContext';
 let gameUrl = "http://localhost:5156/api/Game"
 let genreUrl = "http://localhost:5156/api/Genre"
 
