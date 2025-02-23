@@ -1,25 +1,53 @@
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import axios from "axios"
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 let DBurl = "http://localhost:5156/api/Game"
 
 function GameDashboard() {
     let navigate = useNavigate()
 
-    const formik = useFormik({
-        initialValues: {
-            imageUrl: '',
-            name: '',
-            description: '',
-            price: ''
+    // const formik = useFormik({
+    //     initialValues: {
+    //         imageUrl: null,
+    //         name: '',
+    //         description: '',
+    //         price: '',
+    //         genreId: '',
+    //         featuresId: '',
 
-        },
-        onSubmit: values => {
-            axios.post(
-                DBurl, values)
-        },
-    })
+    //     },
+    //     onSubmit: async (values) => {
+    //         console.log('Submitting values:', values);
+    //         try {
+    //             // Создаем новый объект FormData для отправки данных
+    //             const formData = new FormData();
+
+    //             // Добавляем все поля из формы в formData
+    //             formData.append('name', values.name);
+    //             formData.append('imageUrl', values.imageUrl);  // Файл
+    //             formData.append('description', values.description);
+    //             formData.append('price', values.price);
+    //             formData.append('price', values.genreId);
+    //             formData.append('price', values.featuresId);
+
+
+    //             // Отправляем запрос с использованием FormData
+    //             const response = await axios.post(DBurl, formData, {
+    //                 headers: {
+    //                     'Content-Type': 'multipart/form-data',  // Важный момент
+    //                 },
+    //             });
+
+    //             if (response.status === 200 && response.data) {
+    //                 console.log('Registration successful', response.data);
+    //                 // navigate("/");  // Перенаправление на главную страницу после успешной регистрации
+    //             }
+    //         } catch (error) {
+    //             console.error('addGame failed:', error.response ? error.response.data.errors : error);
+    //         }
+    //     },
+    // })
 
     let [data, setData] = useState([])
 
@@ -45,13 +73,13 @@ function GameDashboard() {
             })
     }
     return (
-        <div className='flex'>
-            <div style={{ backgroundColor: "white", width: "20%",margin: "0 auto 0 0" }}>
+        <div className='flex bg-white'>
+            <div className='admin-left' style={{ backgroundColor: "white", width: "20%", margin: "0 auto 0 0" }}>
 
             </div>
-            <div style={{ backgroundColor: "gray", paddingTop: "20px", width: "80%", margin: "0 0 0 auto",height:"100vh" }}>
+            <div className='admin-right text-black' style={{ backgroundColor: "white", paddingTop: "130px", width: "80%", margin: "0 0 0 auto", height: "100vh" }}>
 
-                <form onSubmit={formik.handleSubmit} className='cont add-form'>
+                {/* <form onSubmit={formik.handleSubmit} className='cont add-form'>
 
                     <div className='input-wrapper'>
                         <label htmlFor="name">Name</label>
@@ -71,9 +99,9 @@ function GameDashboard() {
                             required
                             id="imageUrl"
                             name="imageUrl"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.imageUrl}
+                            type="file"
+                            onChange={(e) => formik.setFieldValue("imageUrl", e.currentTarget.files[0])}
+                    
                         />
                     </div>
                     <div>
@@ -98,9 +126,33 @@ function GameDashboard() {
                         />
                     </div>
 
-                    <button type="submit" onClick={() => navigate("/games")} className='submit-btn'>Submit</button>
-                </form>
+                    <div className='input-wrapper'>
+                        <label htmlFor="genreId">genreId</label>
+                        <input className='text-black'
+                            required
+                            id="genreId"
+                            name="genreId"
+                            type="text"
+                            onChange={formik.handleChange}
+                            value={formik.values.genreId}
+                        />
+                    </div>
 
+                    <div className='input-wrapper'>
+                        <label htmlFor="featuresId">featuresId</label>
+                        <input className='text-black'
+                            required
+                            id="featuresId"
+                            name="featuresId"
+                            type="text"
+                            onChange={formik.handleChange}
+                            value={formik.values.featuresId}
+                        />
+                    </div>
+
+                    <button type="submit" className='submit-btn'>Submit</button>
+                </form> */}
+                <h1 className='text-center font-bold'>Games Table</h1>
                 <table className='cont' style={{ marginTop: "50px" }}>
                     <thead>
                         <tr style={{ textAlign: "left" }}>
@@ -124,8 +176,12 @@ function GameDashboard() {
                                 </tr>
                             ))
                         }
+                        <tr>
+                            <NavLink to="/admin/gameDashboard/addGame"><button className="admin-btn">Add Game</button></NavLink>
+                        </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
     )

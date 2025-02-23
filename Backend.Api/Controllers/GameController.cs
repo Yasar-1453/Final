@@ -44,8 +44,8 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromForm] CreateGameDto dto)
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create( CreateGameDto dto)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Backend.Api.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromForm] UpdateGameDto dto)
+        public async Task<IActionResult> Update( UpdateGameDto dto)
         {
             try
             {

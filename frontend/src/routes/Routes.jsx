@@ -1,7 +1,10 @@
 
+import AddGame from "../pages/admin/addGame"
+import AddGenre from "../pages/admin/addGenre"
 import AdminRoot from "../pages/admin/adminRoot"
 import Dashboard from "../pages/admin/dashboard"
 import GameDashboard from "../pages/admin/gameDash"
+import GenreDashboard from "../pages/admin/genreDash"
 import Basket from "../pages/user/basket"
 import Details from "../pages/user/details"
 import Favorites from "../pages/user/favorites"
@@ -79,6 +82,18 @@ const Routes = [
             {
                 path: "gameDashboard",
                 element: <GameDashboard/>,
+            },
+            {
+                path: "gameDashboard/addGame",
+                element: <AddGame/>,
+            },
+            {
+                path: "genreDashboard",
+                element: <GenreDashboard/>,
+            },
+            {
+                path: "genreDashboard/addGenre",
+                element: <AddGenre/>,
             }
         ]
     }

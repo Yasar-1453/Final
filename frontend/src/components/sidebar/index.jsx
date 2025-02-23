@@ -7,6 +7,7 @@ function Sidebar() {
       <div className='sidebar-links'>
       <p className='sidebar-link'><NavLink to="dashboard" >DashBoard</NavLink></p>
       <p className='sidebar-link'><NavLink to="gameDashboard" >Games</NavLink></p>
+      <p className='sidebar-link'><NavLink to="genreDashboard" >Genres</NavLink></p>
       
       </div>
     </div>

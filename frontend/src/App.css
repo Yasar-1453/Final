@@ -171,6 +171,13 @@ html{
   padding: 7px;
   cursor: pointer;
 }
+.admin-btn{
+  background-color: rgb(192, 240, 1,0.7);
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 7px;
+  cursor: pointer;
+}
 .genre-btn:hover{
   color:rgb(192, 240, 1) ;
   background-color: transparent;
@@ -185,6 +192,12 @@ html{
   color:rgb(192, 240, 1) ;
   background-color: transparent;
   border: 2px solid white;
+}
+
+.admin-btn:hover{
+  color:black ;
+  background-color: transparent;
+  border: 2px solid rgb(192, 240, 1);
 }
 .slick-prev:before,.slick-next::before{
 
@@ -365,6 +378,7 @@ display: none;
   width: 100% !important;
 
 }
+
   }
   @media (max-width:576px) {
 

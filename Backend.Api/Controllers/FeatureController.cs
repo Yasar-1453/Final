@@ -44,7 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateFeatureDto dto)
         {
             try

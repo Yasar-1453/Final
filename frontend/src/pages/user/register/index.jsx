@@ -67,7 +67,7 @@ function Register() {
 
                 <div className='flex flex-col items-start justify-between '>
                     <label htmlFor="ProfilePhoto">Profile Photo:</label>
-                    <input className='text-black' style={{ width: "300px" }}
+                    <input className='text-black' style={{ width: "300px",backgroundColor:"white" }}
                         required
                         id="ProfilePhoto"
                         name="ProfilePhoto"
