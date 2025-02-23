@@ -44,6 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromForm] CreateGameDto dto)
         {
             try
@@ -62,6 +63,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromForm] UpdateGameDto dto)
         {
             try
@@ -79,6 +81,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
@@ -92,6 +95,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SoftDelete([FromBody] int id)
         {
             try

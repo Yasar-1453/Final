@@ -44,6 +44,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateFeatureDto dto)
         {
             try
@@ -58,6 +59,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdateFeatureDto dto)
         {
             try
@@ -72,6 +74,7 @@ namespace Backend.Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
@@ -85,6 +88,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SoftDelete(int id)
         {
             try

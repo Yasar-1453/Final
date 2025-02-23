@@ -11,7 +11,7 @@ namespace Backend.Api.DTO.User
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public Roles Role { get; set; } // ✅ Enum Role
+        public Roles Role { get; set; } = Roles.User;
         public IFormFile ProfilePhoto { get; set; }
     }
 
