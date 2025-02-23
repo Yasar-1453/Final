@@ -71,6 +71,7 @@ function Navbar() {
     setUsername(localStorage.getItem('Username'));
   }, []);
 
+
   const toggleVisibility = () => {
     setIsVisible(prevState => !prevState);
   };
@@ -80,8 +81,11 @@ function Navbar() {
       <div className='flex items-center justify-between py-2 cont flex-wrap'>
         <NavLink to="/"><img src="/media/logo.png" alt="" /></NavLink>
         <div className='flex items-center gap-2'>
-          <GrLanguage className='text-white text-xl ' />
+        <div className='user-img'>
+              <img src="" alt="" style={{ width: "100%", objectFit: "cover", height: "100%", borderRadius: "50%" }} />
+            </div>
           <div>
+
             {username ? (
               <div className='flex items-center username'>
                 <div className='flex items-center' >
@@ -102,6 +106,7 @@ function Navbar() {
             )}
           </div>
           <p className='cursor-pointer' onClick={TrollCat}>Download</p>
+          <GrLanguage className='text-white text-xl ' />
         </div>
       </div>
       <div className='cont flex flex-col justify-center items-center flex-wrap gap-2'>
@@ -119,7 +124,7 @@ function Navbar() {
             <NavLink to="/favorites" style={({ isActive }) => ({ color: isActive ? " #C0F001" : "white" })}><FaHeart /></NavLink><span>{favorites.length}</span>
           </div>
         </div>
-        <div className="search-container relative" style={{width:"265px"}}>
+        <div className="search-container relative" style={{ width: "265px" }}>
           <input className='search flex'
             type="text"
             placeholder="Search for games..."

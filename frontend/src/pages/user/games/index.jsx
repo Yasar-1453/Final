@@ -22,8 +22,8 @@ function Games() {
   function getData() {
     axios.get(gameUrl)
       .then((res) => {
-        setData(res.data);
-        setFilteredData(res.data); // Изначально показываем все данные
+        setData(res.data);       
+        setFilteredData(res.data); 
       });
   }
 
@@ -114,11 +114,14 @@ function Games() {
 
   function handleSortByPrice() {
     let sortedGames = data.sort((a, b) => (a.price - b.price));
+    console.log(sortedGames);
+    
     setData([...sortedGames]);
   }
 
   function handleSortByPriceReverse() {
     let sortedGames = data.sort((a, b) => (b.price - a.price));
+    console.log(sortedGames);
     setData([...sortedGames]);
   }
 
