@@ -25,11 +25,11 @@ function AddGame() {
 
                 // Добавляем все поля из формы в formData
                 formData.append('name', values.name);
-                formData.append('imageUrl', values.imageUrl);  // Файл
+                formData.append('Image', values.imageUrl);  // Файл
                 formData.append('description', values.description);
                 formData.append('price', values.price);
-                formData.append('price', values.genreId);
-                formData.append('price', values.featuresId);
+                formData.append('genreId', values.genreId);
+                formData.append('featuresId', values.featuresId);
 
 
                 // Отправляем запрос с использованием FormData

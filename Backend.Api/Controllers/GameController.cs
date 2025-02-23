@@ -80,9 +80,9 @@ namespace Backend.Api.Controllers
             }
         }
 
-        [HttpDelete]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete([FromBody] int id)
+        [HttpDelete ("{id}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete( int id)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Backend.Api.Controllers
             }
         }
         [HttpDelete("/api/[controller]/[action]")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> SoftDelete([FromBody] int id)
         {
             try
